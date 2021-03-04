@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 import { globalStyles } from "../styles/global.js";
+import Reviews from '../components/Reviews.js'
 
 const Home = ({ navigation }) => {
   return (
@@ -10,6 +11,7 @@ const Home = ({ navigation }) => {
         title="Review Details"
         onPress={() => navigation.navigate("ReviewDetails")}
       />
+      <Reviews/>
     </View>
   );
 };

@@ -5,7 +5,7 @@ import { globalStyles } from "../styles/global.js";
 const ReviewDetails = ({ navigation }) => {
   return (
     <View style={globalStyles.container}>
-      <Text>ReviewDetails Screen</Text>
+      <Text style={globalStyles.titleText}>ReviewDetails Screen</Text>
       {/* <Button title="Back to home" onPress={() => navigation.goBack()}/> */}
     </View>
   );
