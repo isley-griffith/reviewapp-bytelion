@@ -1,21 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import * as Font from "expo-font";
+import Home from "./screens/Home.js";
+import ReviewDetails from "./screens/ReviewDetails.js";
+import AppLoading from "expo-app-loading";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Nunito_400Regular, Nunito_700Bold } from "@expo-google-fonts/nunito";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+function useFonts(fontMap) {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  (async () => {
+    await Font.loadAsync(fontMap);
+    setFontsLoaded(true);
+  })();
+  return [fontsLoaded];
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const Stack = createStackNavigator();
+
+export default function App() {
+  let [fontsLoaded] = useFonts({
+    // Nunito_400Regular,
+    // Nunito_700Bold,
+    "RobotoBold": require("./assets/fonts/Roboto-Bold.ttf"),
+    "RobotoRegular": require("./assets/fonts/Roboto-Regular.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ title: "Home" }}
+        />
+        <Stack.Screen
+          name="ReviewDetails"
+          component={ReviewDetails}
+          options={{ title: "Reviews" }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
