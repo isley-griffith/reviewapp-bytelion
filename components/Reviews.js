@@ -18,7 +18,7 @@ export default function Reviews() {
   }, []);
 
   return (
-    <View style={{ flex: 1, padding: 24 }}>
+    <View style={{ flex: 1, paddingLeft: 16, paddingRight: 16 }}>
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
@@ -32,22 +32,15 @@ export default function Reviews() {
           <Text style={{ fontSize: 18, color: "green", textAlign: "center" }}>
             {data.title}
           </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              color: "green",
-              textAlign: "center",
-              paddingBottom: 10,
-            }}
-          >
-            Reviews:
-          </Text>
+
           <FlatList
             data={data}
             keyExtractor={({ id }) => id.toString()}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+          
             renderItem={({ item }) => (
               <Review item={item}/>
-            //   <Text>{item.id + ". " + item.message}</Text>
             )}
           />
         </View>
