@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import globalStyles from "../styles/global.js";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Avatar } from "react-native-paper";
-import { Rating } from 'react-native-ratings';
+import { Rating } from "react-native-ratings";
 
 export default function Review({ item }) {
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  
-  const voteHandler = () => {
 
-  }
+  const [textShown, setTextShown] = useState(false); //To show ur remaining Text
+  const [lengthMore, setLengthMore] = useState(false); //to show the "Read more & Less Line"
+  const toggleNumberOfLines = () => {
+    //To toggle the show text or hide it
+    setTextShown(!textShown);
+  };
+
+  const onTextLayout = useCallback((e) => {
+    setLengthMore(e.nativeEvent.lines.length > 1); //to check if text is more than 1 line
+    // console.log(e.nativeEvent);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -18,7 +26,25 @@ export default function Review({ item }) {
         {/* message, created_at, avatar */}
         <View>
           <Avatar.Text size={42} marginBottom={5} label={"IG"} />
-          <Text style={styles.reviewText}>{item.message}</Text>
+
+          <View style={styles.mainContainer}>
+            <Text
+              onTextLayout={onTextLayout}
+              numberOfLines={textShown ? undefined : 2}
+              style={{ lineHeight: 21 }}
+            >
+              {item.message}
+            </Text>
+
+            {lengthMore ? (
+              <Text
+                onPress={toggleNumberOfLines}
+                style={{ lineHeight: 21, marginTop: 10, color: "#3FA7D6" }}
+              >
+                {textShown ? "Read less..." : "Read more..."}
+              </Text>
+            ) : null}
+          </View>
         </View>
         <View>
           <Text style={{ opacity: 0.4 }}>{item.created_at.split("T")[0]}</Text>
@@ -40,12 +66,12 @@ export default function Review({ item }) {
       </View>
       {/** rating */}
       <View style={styles.rating}>
-        <Rating 
-            type="star"
-            imageSize={20}
-            isDisabled
-            startingValue={item.rating}
-            fractions={1}
+        <Rating
+          type="star"
+          imageSize={20}
+          isDisabled
+          startingValue={item.rating}
+          fractions={1}
         />
       </View>
     </View>
@@ -80,8 +106,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   rating: {
-    position: 'absolute',
+    position: "absolute",
     left: 65,
-    top: 18
-  }
+    top: 18,
+  },
 });
