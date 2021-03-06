@@ -5,8 +5,6 @@ import { Avatar } from "react-native-paper";
 import { Rating } from "react-native-ratings";
 
 export default function Review({ item }) {
-
-
   function getColor(value) {
     let hue = ((value / 5) * 120).toString(10);
     return ["hsl(", hue, ",100%, 70%)"].join("");
@@ -56,7 +54,7 @@ export default function Review({ item }) {
             </TouchableOpacity>
             <Text style={{ fontSize: 16, fontFamily: "RobotoRegular" }}>
               {" "}
-              0{" "}
+              0{" "} {/** Placeholder */}
             </Text>
             <TouchableOpacity>
               <MaterialIcons name="thumb-down" color="teal" size={16} />
@@ -96,7 +94,14 @@ const styles = StyleSheet.create({
     borderColor: "#bbb",
     borderRadius: 10,
     padding: 10,
-    marginBottom: 10,
+    margin: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowOpacity: .2,
+    shadowRadius: 2
   },
   reviewText: {
     flex: 1,

@@ -5,7 +5,7 @@ import ReviewDetails from "./screens/ReviewDetails.js";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Nunito_400Regular, Nunito_700Bold } from "@expo-google-fonts/nunito";
+import {View} from 'react-native';
 
 function useFonts(fontMap) {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -30,19 +30,23 @@ export default function App() {
     return <AppLoading />;
   }
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ title: "Home" }}
-        />
-        <Stack.Screen
-          name="ReviewDetails"
-          component={ReviewDetails}
-          options={{ title: "Reviews" }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName="Home">
+    //     <Stack.Screen
+    //       name="Home"
+    //       component={Home}
+    //       options={{ title: "Home" }}
+    //     />
+    //     <Stack.Screen
+    //       name="ReviewDetails"
+    //       component={ReviewDetails}
+    //       options={{ title: "Reviews" }}
+    //     />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    <View style={{flex: 1, height: "100%"}}>
+      <Home />
+
+    </View>
   );
 }
