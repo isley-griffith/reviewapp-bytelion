@@ -34,7 +34,11 @@ export default function Review({ item }) {
             <Text
               onTextLayout={onTextLayout}
               numberOfLines={textShown ? undefined : 2}
-              style={{ lineHeight: 21, fontFamily: "RobotoRegular", color: "white" }}
+              style={{
+                lineHeight: 21,
+                fontFamily: "RobotoRegular",
+                color: "white",
+              }}
             >
               {item.message}
             </Text>
@@ -52,16 +56,32 @@ export default function Review({ item }) {
             <TouchableOpacity>
               <MaterialIcons name="thumb-up" color="white" size={16} />
             </TouchableOpacity>
-            <Text style={{ fontSize: 16, fontFamily: "RobotoRegular", color: "white" }}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: "RobotoRegular",
+                color: "white",
+              }}
+            >
               {" "}
-              0{" "} {/** Placeholder */}
+              0 {/** Placeholder */}
             </Text>
             <TouchableOpacity>
-              <MaterialIcons name="thumb-down" color="#bbb" size={16} />
+              <MaterialIcons
+                name="thumb-down"
+                color="#bbb"
+                size={16}
+                style={{ marginLeft: 8 }}
+              />
             </TouchableOpacity>
           </View>
           <TouchableOpacity>
-            <MaterialIcons name="comment" size={20} color="white"/>
+            <MaterialIcons
+              name="comment"
+              size={20}
+              color="white"
+              style={{ position: "absolute", right: 4, bottom: 0 }}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -98,10 +118,10 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 5
+      height: 5,
     },
-    shadowOpacity: .2,
-    shadowRadius: 2
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
   },
   reviewText: {
     flex: 1,

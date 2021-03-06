@@ -5,7 +5,7 @@ import ReviewDetails from "./screens/ReviewDetails.js";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import {View, SafeAreaView, StatusBar } from 'react-native';
+import {View, StatusBar, SafeAreaView } from 'react-native';
 
 function useFonts(fontMap) {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -44,9 +44,9 @@ export default function App() {
       
     // </NavigationContainer>
 
-    <View style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor:"#202124",}}>
       <Home />
       <StatusBar hidden />
-    </View>
+    </SafeAreaView>
   );
 }
