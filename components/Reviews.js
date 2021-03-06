@@ -1,7 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import { View, Text, FlatList, Image, StyleSheet } from "react-native";
-import Review from './Review.js';
-
+import Review from "./Review.js";
 
 export default function Reviews() {
   const [isLoading, setLoading] = useState(true);
@@ -38,10 +37,7 @@ export default function Reviews() {
             keyExtractor={({ id }) => id.toString()}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
-          
-            renderItem={({ item }) => (
-              <Review item={item}/>
-            )}
+            renderItem={({ item }) => <Review item={item} />}
           />
         </View>
       )}

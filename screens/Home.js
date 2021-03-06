@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { globalStyles } from "../styles/global.js";
-import Reviews from '../components/Reviews.js'
+import Reviews from "../components/Reviews.js";
 
 const Home = ({ navigation }) => {
   return (
@@ -10,21 +10,20 @@ const Home = ({ navigation }) => {
     //   <Button
     //     title="Review Details"
     //     onPress={() => navigation.navigate("ReviewDetails")}
-    //   /> 
+    //   />
     //   <Reviews/>
     // </View>
     <View style={styles.container}>
-      <Reviews/>
+      <Reviews />
     </View>
-
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white"
-  }
-})
+    backgroundColor: "white",
+  },
+});
 
 export default Home;
