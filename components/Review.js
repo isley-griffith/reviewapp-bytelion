@@ -34,7 +34,7 @@ export default function Review({ item }) {
             <Text
               onTextLayout={onTextLayout}
               numberOfLines={textShown ? undefined : 2}
-              style={{ lineHeight: 21, fontFamily: "RobotoRegular" }}
+              style={{ lineHeight: 21, fontFamily: "RobotoRegular", color: "white" }}
             >
               {item.message}
             </Text>
@@ -50,18 +50,18 @@ export default function Review({ item }) {
         <View style={styles.bottomRowContainer}>
           <View style={styles.thumbsContainer}>
             <TouchableOpacity>
-              <MaterialIcons name="thumb-up" color="coral" size={16} />
+              <MaterialIcons name="thumb-up" color="white" size={16} />
             </TouchableOpacity>
-            <Text style={{ fontSize: 16, fontFamily: "RobotoRegular" }}>
+            <Text style={{ fontSize: 16, fontFamily: "RobotoRegular", color: "white" }}>
               {" "}
               0{" "} {/** Placeholder */}
             </Text>
             <TouchableOpacity>
-              <MaterialIcons name="thumb-down" color="teal" size={16} />
+              <MaterialIcons name="thumb-down" color="#bbb" size={16} />
             </TouchableOpacity>
           </View>
           <TouchableOpacity>
-            <MaterialIcons name="comment" size={20} />
+            <MaterialIcons name="comment" size={20} color="white"/>
           </TouchableOpacity>
         </View>
       </View>
@@ -87,14 +87,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
-    // justifyContent: "space-between",
-    // justifyContent:'flex-start',
     borderWidth: 1,
-    backgroundColor: "#fff",
+    // backgroundColor: "#202124",
+    backgroundColor: "#35363a",
+
     borderColor: "#bbb",
     borderRadius: 10,
     padding: 10,
-    margin: 10,
+    marginBottom: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -123,10 +123,11 @@ const styles = StyleSheet.create({
     top: 18,
   },
   date: {
-    opacity: 0.4,
+    opacity: 0.3,
     position: "absolute",
-    right: 120,
-    top: 10,
+    right: 128,
+    top: 12,
+    color: "white",
     fontFamily: "RobotoRegular",
   },
   read: {

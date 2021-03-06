@@ -7,8 +7,8 @@ import {
   Animated,
   StyleSheet,
   Easing,
-  SafeAreaViewBase,
   SafeAreaView,
+  Button
 } from "react-native";
 import Review from "./Review.js";
 
@@ -42,13 +42,16 @@ export default function Reviews() {
             justifyContent: "space-between",
           }}
         >
-
+          {/* <Button title="Sort by: " /> */}
           <Animated.FlatList
             data={data}
             onScroll={Animated.event(
               [{ nativeEvent: { contentOffset: { y: scrollY } } }],
               { useNativeDriver: true }
             )}
+            contentContainerStyle={{
+              paddingTop: 60,
+            }}
             keyExtractor={({ id }) => id.toString()}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}

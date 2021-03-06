@@ -5,7 +5,7 @@ import ReviewDetails from "./screens/ReviewDetails.js";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import {View} from 'react-native';
+import {View, SafeAreaView, StatusBar } from 'react-native';
 
 function useFonts(fontMap) {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -20,8 +20,6 @@ const Stack = createStackNavigator();
 
 export default function App() {
   let [fontsLoaded] = useFonts({
-    // Nunito_400Regular,
-    // Nunito_700Bold,
     "RobotoBold": require("./assets/fonts/Roboto-Bold.ttf"),
     "RobotoRegular": require("./assets/fonts/Roboto-Regular.ttf"),
   });
@@ -43,10 +41,12 @@ export default function App() {
     //       options={{ title: "Reviews" }}
     //     />
     //   </Stack.Navigator>
+      
     // </NavigationContainer>
-    <View style={{flex: 1, height: "100%"}}>
-      <Home />
 
+    <View style={{flex: 1}}>
+      <Home />
+      <StatusBar hidden />
     </View>
   );
 }

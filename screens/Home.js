@@ -5,16 +5,12 @@ import Reviews from "../components/Reviews.js";
 
 const Home = ({ navigation }) => {
   return (
-    // <View style={globalStyles.container}>
-    //   <Text style={globalStyles.titleText}>Home Screen</Text>
-    //   <Button
-    //     title="Review Details"
-    //     onPress={() => navigation.navigate("ReviewDetails")}
-    //   />
-    //   <Reviews/>
-    // </View>
     <View style={styles.container}>
-      <Reviews />
+      {/* <Button
+        title="Review Details"
+        onPress={() => navigation.navigate("ReviewDetails")}
+      /> */}
+      <Reviews/>
     </View>
   );
 };
@@ -22,8 +18,9 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
-    height: "100%"
+    // backgroundColor: "#35363a",
+    backgroundColor: "#202124",
+        height: "100%"
   },
 });
 
