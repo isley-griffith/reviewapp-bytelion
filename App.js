@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import * as Font from "expo-font";
 import Home from "./screens/Home.js";
+import Login from "./screens/Login.js";
 import ReviewDetails from "./screens/ReviewDetails.js";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import {View, StatusBar, SafeAreaView } from 'react-native';
+import { View, StatusBar, SafeAreaView } from "react-native";
 
 function useFonts(fontMap) {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -20,8 +21,8 @@ const Stack = createStackNavigator();
 
 export default function App() {
   let [fontsLoaded] = useFonts({
-    "RobotoBold": require("./assets/fonts/Roboto-Bold.ttf"),
-    "RobotoRegular": require("./assets/fonts/Roboto-Regular.ttf"),
+    RobotoBold: require("./assets/fonts/Roboto-Bold.ttf"),
+    RobotoRegular: require("./assets/fonts/Roboto-Regular.ttf"),
   });
 
   if (!fontsLoaded) {
@@ -41,12 +42,21 @@ export default function App() {
     //       options={{ title: "Reviews" }}
     //     />
     //   </Stack.Navigator>
-      
-    // </NavigationContainer>
 
-    <SafeAreaView style={{flex: 1, backgroundColor:"#202124",}}>
-      <Home />
-      <StatusBar hidden />
-    </SafeAreaView>
+    // </NavigationContainer>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="Reviews"
+          component={Home}
+          options={{ headerShown: false }}
+        ></Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }

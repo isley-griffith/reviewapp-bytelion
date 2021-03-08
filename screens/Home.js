@@ -10,7 +10,7 @@ const Home = ({ navigation }) => {
         title="Review Details"
         onPress={() => navigation.navigate("ReviewDetails")}
       /> */}
-      <Reviews/>
+      <Reviews />
     </View>
   );
 };
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // backgroundColor: "#35363a",
     backgroundColor: "#202124",
-        height: "100%"
+    height: "100%",
   },
 });
 

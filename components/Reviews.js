@@ -42,50 +42,49 @@ export default function Reviews() {
             flexDirection: "column",
             justifyContent: "space-between",
           }}
-        >   
-            <Animated.FlatList
-              data={data}
-              onScroll={Animated.event(
-                [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-                { useNativeDriver: true }
-              )}
-              // contentContainerStyle={{
-              //   paddingTop: 60,
-              // }}
-              keyExtractor={({ id }) => id.toString()}
-              showsVerticalScrollIndicator={false}
-              showsHorizontalScrollIndicator={false}
-              renderItem={({ item, index }) => {
-                const inputRange = [
-                  -1, // stays same
-                  0,
-                  ITEM_SIZE * index, // when reaches top edge
-                  ITEM_SIZE * (index + 2), // animation finishes after scrolling 2 items
-                ];
-                const opacityInputRange = [
-                  -1, // stays same
-                  0,
-                  ITEM_SIZE * index, // when reaches top edge
-                  ITEM_SIZE * (index + 1), // animation finishes after scrolling 1 item
-                ];
+        >
+          <Animated.FlatList
+            data={data}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+              { useNativeDriver: true }
+            )}
+            contentContainerStyle={{
+              paddingTop: 60,
+            }}
+            keyExtractor={({ id }) => id.toString()}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item, index }) => {
+              const inputRange = [
+                -1, // stays same
+                0,
+                ITEM_SIZE * index, // when reaches top edge
+                ITEM_SIZE * (index + 2), // animation finishes after scrolling 2 items
+              ];
+              const opacityInputRange = [
+                -1, // stays same
+                0,
+                ITEM_SIZE * index, // when reaches top edge
+                ITEM_SIZE * (index + 1), // animation finishes after scrolling 1 item
+              ];
 
-                const scale = scrollY.interpolate({
-                  inputRange,
-                  outputRange: [1, 1, 1, 0],
-                });
-                const opacity = scrollY.interpolate({
-                  inputRange: opacityInputRange,
-                  outputRange: [1, 1, 1, 0],
-                });
+              const scale = scrollY.interpolate({
+                inputRange,
+                outputRange: [1, 1, 1, 0],
+              });
+              const opacity = scrollY.interpolate({
+                inputRange: opacityInputRange,
+                outputRange: [1, 1, 1, 0],
+              });
 
-                return (
-                  <Animated.View style={{ transform: [{ scale }], opacity }}>
-                    <Review item={item} />
-                  </Animated.View>
-                );
-              }}
-            />
-          
+              return (
+                <Animated.View style={{ transform: [{ scale }], opacity }}>
+                  <Review item={item} />
+                </Animated.View>
+              );
+            }}
+          />
         </View>
       )}
     </View>

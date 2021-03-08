@@ -10,7 +10,7 @@ export default function Review({ item }) {
     return ["hsl(", hue, ",100%, 70%)"].join("");
   }
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
+  const STAR_SIZE = 20;
   const [textShown, setTextShown] = useState(false); //To show ur remaining Text
   const [lengthMore, setLengthMore] = useState(false); //to show the "Read more & Less Line"
   const toggleNumberOfLines = () => {
@@ -56,16 +56,7 @@ export default function Review({ item }) {
             <TouchableOpacity>
               <MaterialIcons name="thumb-up" color="white" size={16} />
             </TouchableOpacity>
-            <Text
-              style={{
-                fontSize: 16,
-                fontFamily: "RobotoRegular",
-                color: "white",
-              }}
-            >
-              {" "}
-              0 {/** Placeholder */}
-            </Text>
+            <Text style={styles.likes}> 0 {/** Placeholder */}</Text>
             <TouchableOpacity>
               <MaterialIcons
                 name="thumb-down"
@@ -80,7 +71,7 @@ export default function Review({ item }) {
               name="comment"
               size={20}
               color="white"
-              style={{ position: "absolute", right: 4, bottom: 0 }}
+              style={styles.comment}
             />
           </TouchableOpacity>
         </View>
@@ -110,7 +101,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     // backgroundColor: "#202124",
     backgroundColor: "#35363a",
-
     borderColor: "#bbb",
     borderRadius: 10,
     padding: 10,
@@ -155,5 +145,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: "#3FA7D6",
     fontFamily: "RobotoRegular",
+  },
+  comment: {
+    position: "absolute",
+    right: 4,
+    bottom: 0,
+  },
+  likes: {
+    fontSize: 16,
+    fontFamily: "RobotoRegular",
+    color: "white",
   },
 });
