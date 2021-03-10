@@ -1,62 +1,103 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import * as Font from "expo-font";
 import Home from "./screens/Home.js";
-import Login from "./screens/Login.js";
-import ReviewDetails from "./screens/ReviewDetails.js";
-import AppLoading from "expo-app-loading";
+import LoginScreen from "./screens/LoginScreen.js";
+import SignUpScreen from "./screens/SignUpScreen.js";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { View, StatusBar, SafeAreaView } from "react-native";
-
-function useFonts(fontMap) {
-  const [fontsLoaded, setFontsLoaded] = useState(false);
-  (async () => {
-    await Font.loadAsync(fontMap);
-    setFontsLoaded(true);
-  })();
-  return [fontsLoaded];
-}
+import {
+  View,
+  StatusBar,
+  SafeAreaView,
+  Appearance,
+  ActivityIndicator,
+} from "react-native";
+import mainContext from "./context/mainContext";
+import Firebase from "./config/Firebase.js";
 
 const Stack = createStackNavigator();
 
-export default function App() {
-  let [fontsLoaded] = useFonts({
-    RobotoBold: require("./assets/fonts/Roboto-Bold.ttf"),
-    RobotoRegular: require("./assets/fonts/Roboto-Regular.ttf"),
-  });
+const App = ({ navigation }) => {
+  const [userLogged, setUserLogged] = useState(false);
+  const [userProfile, setUserProfile] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
-  return (
-    // <NavigationContainer>
-    //   <Stack.Navigator initialRouteName="Home">
-    //     <Stack.Screen
-    //       name="Home"
-    //       component={Home}
-    //       options={{ title: "Home" }}
-    //     />
-    //     <Stack.Screen
-    //       name="ReviewDetails"
-    //       component={ReviewDetails}
-    //       options={{ title: "Reviews" }}
-    //     />
-    //   </Stack.Navigator>
+  useEffect(() => {
+    const authListener = Firebase.auth().onAuthStateChanged((user) => {
+      setUserLogged(user ? true : false);
+      setIsLoading(false);
+      setUserProfile(user);
+    });
+    return authListener;
+  }, []);
 
-    // </NavigationContainer>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{ headerShown: false }}
-        ></Stack.Screen>
-        <Stack.Screen
-          name="Reviews"
-          component={Home}
-          options={{ headerShown: false }}
-        ></Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+  const doLogin = async (email, password) => {
+    setIsLoading(true);
+    Firebase.auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch((error) => console.log(error));
+  };
+
+  const doSignup = async (email, password) => {
+    setIsLoading(true);
+    Firebase.auth()
+      .createUserWithEmailAndPassword(email, password)
+      .catch((error) => console.log(error));
+  };
+
+  const mainC = useMemo(
+    () => ({
+      userProfile: { userProfile },
+      signOutUser: () => Firebase.auth().signOut(),
+      handleLogin: (email, password) => {
+        doLogin(email, password);
+      },
+      handleSignup: (email, password) => {
+        doSignup(email, password);
+      },
+    }),
+    []
   );
-}
+
+  if (isLoading) {
+    return (
+      <View
+        style={{ flex: 1, justifyContent: "center", alignItems: "center ", left: "48%" }}
+      >
+        <ActivityIndicator animating={true} size="large" />
+      </View>
+    );
+  }
+
+  return (
+    <mainContext.Provider value={mainC}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName={"LoginScreen"}>
+          {userLogged == false ? (
+            <>
+              <Stack.Screen
+                name="LoginScreen"
+                options={{ headerShown: false }}
+                component={LoginScreen}
+              ></Stack.Screen>
+              <Stack.Screen
+                name="SignUpScreen"
+                component={SignUpScreen}
+              ></Stack.Screen>
+            </>
+          ) : (
+            <>
+              <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{ headerShown: false }}
+              />
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </mainContext.Provider>
+  );
+};
+
+export default App;

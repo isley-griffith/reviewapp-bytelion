@@ -27,6 +27,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "API_KEY": "AIzaSyAxDPgTa9wfxp8G41PvHR4bOLLV7GDY7mg",
+      "AUTH_DOMAIN": "review-app-9f9f2.firebaseapp.com",
+      "DATABASE_URL": "https://review-app-9f9f2.firebaseio.com",
+      "PROJECT_ID": "review-app-9f9f2", 
+      "STORAGE_BUCKET": "review-app-9f9f2.appspot.com",
+      "MESSAGE_SENDER_ID": "147057011392",
+      "APP_ID": "1:147057011392:web:0173f41d52c59b535c5b25"
     }
   }
 }

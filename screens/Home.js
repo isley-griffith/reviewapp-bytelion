@@ -1,15 +1,20 @@
-import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import React, {useContext} from "react";
+import { View, StyleSheet } from "react-native";
 import { globalStyles } from "../styles/global.js";
 import Reviews from "../components/Reviews.js";
+import Firebase from '../config/Firebase.js';
+import mainContext from '../context/mainContext.js';
+import { Text, Button, Title, Paragraph } from 'react-native-paper';
 
 const Home = ({ navigation }) => {
+  const { currentUser } = Firebase.auth();
+  const { signOutUser } = useContext(mainContext);
+  const { inHome } = useContext(mainContext);
   return (
     <View style={styles.container}>
-      {/* <Button
-        title="Review Details"
-        onPress={() => navigation.navigate("ReviewDetails")}
-      /> */}
+      <View style={styles.signOutContainer}>
+        <Button onPress={() => signOutUser()} mode="contained" icon="logout"></Button>
+      </View>
       <Reviews />
     </View>
   );
@@ -22,6 +27,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#202124",
     height: "100%",
   },
+  signOutContainer: {
+    position: 'absolute',
+    borderRadius: 10,
+    bottom: 20,
+    left: 20,
+    zIndex: 100
+  }
 });
 
 export default Home;

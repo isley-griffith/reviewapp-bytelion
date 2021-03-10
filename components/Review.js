@@ -9,8 +9,6 @@ export default function Review({ item }) {
     let hue = ((value / 5) * 120).toString(10);
     return ["hsl(", hue, ",100%, 70%)"].join("");
   }
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const STAR_SIZE = 20;
   const [textShown, setTextShown] = useState(false); //To show ur remaining Text
   const [lengthMore, setLengthMore] = useState(false); //to show the "Read more & Less Line"
   const toggleNumberOfLines = () => {
@@ -36,7 +34,6 @@ export default function Review({ item }) {
               numberOfLines={textShown ? undefined : 2}
               style={{
                 lineHeight: 21,
-                fontFamily: "RobotoRegular",
                 color: "white",
               }}
             >
@@ -82,6 +79,7 @@ export default function Review({ item }) {
           type="custom"
           ratingColor={getColor(item.rating)}
           imageSize={20}
+          tintColor="#35363a"
           isDisabled
           startingValue={item.rating}
           fractions={1}
@@ -115,7 +113,7 @@ const styles = StyleSheet.create({
   },
   reviewText: {
     flex: 1,
-    fontFamily: "RobotoRegular",
+
     fontSize: 18,
   },
   thumbsContainer: {
@@ -138,13 +136,11 @@ const styles = StyleSheet.create({
     right: 128,
     top: 12,
     color: "white",
-    fontFamily: "RobotoRegular",
   },
   read: {
     lineHeight: 21,
     marginTop: 10,
     color: "#3FA7D6",
-    fontFamily: "RobotoRegular",
   },
   comment: {
     position: "absolute",
@@ -153,7 +149,6 @@ const styles = StyleSheet.create({
   },
   likes: {
     fontSize: 16,
-    fontFamily: "RobotoRegular",
     color: "white",
   },
 });
