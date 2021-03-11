@@ -13,6 +13,10 @@ import {
 } from "react-native";
 import Review from "./Review.js";
 
+/**
+ * Displays all reviews from mock API in a Flatlist component
+ */
+
 export default function Reviews() {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);

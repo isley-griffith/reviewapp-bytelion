@@ -5,7 +5,11 @@ import Reviews from "../components/Reviews.js";
 import Firebase from '../config/Firebase.js';
 import mainContext from '../context/mainContext.js';
 import { Text, Button, Title, Paragraph } from 'react-native-paper';
-
+/**
+ * Contains the Reviews component and allows for other buttons
+ * to overlay on top.
+ * @param {} param0 
+ */
 const Home = ({ navigation }) => {
   const { currentUser } = Firebase.auth();
   const { signOutUser } = useContext(mainContext);
@@ -19,6 +23,10 @@ const Home = ({ navigation }) => {
     </View>
   );
 };
+
+/**
+ * Styles
+ */
 
 const styles = StyleSheet.create({
   container: {

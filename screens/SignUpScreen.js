@@ -9,7 +9,7 @@ import {
   Platform,
 } from "react-native";
 import Firebase from "../config/Firebase.js";
-import { TextInput, Button } from "react-native-paper";
+import { TextInput, Button, HelperText } from "react-native-paper";
 import mainContext from "../context/mainContext.js";
 
 const SignUpScreen = ({ navigation }) => {
@@ -17,6 +17,19 @@ const SignUpScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  /**
+   * Placeholder bad email checking function
+   */
+  const badEmailChecker = () => {
+    return (!email.includes('@') | !email.includes('.'));
+  }
+  /**
+   * Placeholder bad password checking function
+   */
+  const badPasswordChecker = () => {
+    return !password
+  }
 
   return (
     <KeyboardAvoidingView
@@ -30,29 +43,35 @@ const SignUpScreen = ({ navigation }) => {
               placeholder="Name"
               onChangeText={(name) => setName(name)}
               value={name}
-              label="Name"
+              label="Name (optional)"
               mode="outlined"
             />
           </View>
           <View style={styles.inputContainer}>
             <TextInput
-              placeholder="Email address"
+              placeholder="Email address*"
               onChangeText={(email) => setEmail(email)}
               value={email}
-              label="Email"
+              label="Email*"
               keyboardType={"email-address"}
               mode="outlined"
             />
+            <HelperText type="error" visible={badEmailChecker()}>
+              Email address is invalid.*
+            </HelperText>
           </View>
           <View style={styles.inputContainer}>
             <TextInput
-              placeholder="Password"
+              placeholder="Password*"
               onChangeText={(password) => setPassword(password)}
               value={password}
               secureTextEntry={true}
-              label="Password"
+              label="Password*"
               mode="outlined"
             />
+            <HelperText type="error" visible={badPasswordChecker()}>
+              Password is required.*
+            </HelperText>
           </View>
           <Button
             mode="contained"
@@ -64,6 +83,10 @@ const SignUpScreen = ({ navigation }) => {
     </KeyboardAvoidingView>
   );
 };
+
+/**
+ * Styles
+ */
 
 const styles = StyleSheet.create({
   container: {

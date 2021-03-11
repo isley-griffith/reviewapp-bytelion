@@ -3,22 +3,27 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Avatar } from "react-native-paper";
 import { Rating } from "react-native-ratings";
+import { exportReviewsToFirestore } from "../API/firebaseMethods.js";
+
+/**
+ * Individual review component
+ * @param {} param0 
+ */
 
 export default function Review({ item }) {
   function getColor(value) {
     let hue = ((value / 5) * 120).toString(10);
     return ["hsl(", hue, ",100%, 70%)"].join("");
   }
-  const [textShown, setTextShown] = useState(false); //To show ur remaining Text
-  const [lengthMore, setLengthMore] = useState(false); //to show the "Read more & Less Line"
+  const [textShown, setTextShown] = useState(false); // to show remaining Text
+  const [lengthMore, setLengthMore] = useState(false); // to show the "Read more & Less Line"
   const toggleNumberOfLines = () => {
-    //To toggle the show text or hide it
+    // To toggle the show text or hide it
     setTextShown(!textShown);
   };
 
   const onTextLayout = useCallback((e) => {
-    setLengthMore(e.nativeEvent.lines.length > 1); //to check if text is more than 1 line
-    // console.log(e.nativeEvent);
+    setLengthMore(e.nativeEvent.lines.length > 1); // to check if text is more than 1 line
   }, []);
 
   return (
