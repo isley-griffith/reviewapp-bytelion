@@ -33,6 +33,8 @@ export default function Reviews() {
       .finally(() => setLoading(false));
   }, []);
 
+  
+
   return (
     <View
       style={{ flex: 1, paddingLeft: 16, paddingRight: 16, height: "100%" }}
