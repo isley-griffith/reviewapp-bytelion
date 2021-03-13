@@ -24,7 +24,7 @@
     "expo-localization": "~9.1.0",
     "expo-status-bar": "~1.0.3",
     "faker": "^5.4.0",
-    "firebase": "7.9.0",
+    "firebase": "^7.9.0",
     "firestore-export-import": "^0.13.0",
     "i18n-js": "^3.8.0",
     "react": "16.13.1",

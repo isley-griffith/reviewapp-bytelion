@@ -3,7 +3,7 @@ import firebase from 'firebase';
 const firebaseConfig = {
     apiKey: 'AIzaSyAxDPgTa9wfxp8G41PvHR4bOLLV7GDY7mg',
     authDomain: 'review-app-9f9f2.firebaseapp.com',
-    databaseURL: 'https://review-app-9f9f2.firebaseio.com',
+    databaseURL: 'https://review-app-9f9f2-default-rtdb.firebaseio.com/',
     projectId: 'review-app-9f9f2', 
     storageBucket: 'review-app-9f9f2.appspot.com',
     messagingSenderId: '147057011392',
