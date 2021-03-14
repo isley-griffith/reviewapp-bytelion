@@ -3,7 +3,7 @@ import * as Font from "expo-font";
 import Home from "./screens/Home.js";
 import LoginScreen from "./screens/LoginScreen.js";
 import SignUpScreen from "./screens/SignUpScreen.js";
-import ReviewScreen from './screens/ReviewScreen.js';
+import ReviewScreen from "./screens/ReviewScreen.js";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
@@ -12,13 +12,14 @@ import {
   SafeAreaView,
   Appearance,
   ActivityIndicator,
-  Alert
+  Alert,
 } from "react-native";
 import mainContext from "./context/mainContext";
 import Firebase from "./config/Firebase.js";
 import Constants from "expo-constants";
 import * as Google from "expo-google-app-auth";
 import firebase from "firebase";
+import { CardStyleInterpolators } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,12 @@ const App = ({ navigation }) => {
   const [userLogged, setUserLogged] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const forFade = ({ current }) => ({
+    cardStyle: {
+      opacity: current.progress,
+    },
+  });
 
   /**
    * Effect hook to listen for logouts/logins and loading screens
@@ -41,8 +48,8 @@ const App = ({ navigation }) => {
 
   /**
    * Function that handles Firebase authentication for login
-   * @param {*} email 
-   * @param {*} password 
+   * @param {*} email
+   * @param {*} password
    */
 
   const doLogin = async (email, password) => {
@@ -54,8 +61,8 @@ const App = ({ navigation }) => {
 
   /**
    * Function that handles Firebase authentication for signup
-   * @param {*} email 
-   * @param {*} password 
+   * @param {*} email
+   * @param {*} password
    */
   const doSignup = async (email, password) => {
     setIsLoading(true);
@@ -108,7 +115,7 @@ const App = ({ navigation }) => {
           Alert.alert("Password field is required.");
         }
         if (email && password) {
-         doLogin(email, password);
+          doLogin(email, password);
         }
       },
       handleSignup: (email, password) => {
@@ -128,7 +135,7 @@ const App = ({ navigation }) => {
     }),
     []
   );
-  
+
   /**
    * Loading screen animation
    */
@@ -146,7 +153,7 @@ const App = ({ navigation }) => {
       </View>
     );
   }
-  
+
   return (
     <mainContext.Provider value={mainC}>
       <NavigationContainer>
@@ -162,18 +169,21 @@ const App = ({ navigation }) => {
                 name="SignUpScreen"
                 component={SignUpScreen}
               ></Stack.Screen>
-              
             </>
           ) : (
             <>
               <Stack.Screen
                 name="Home"
                 component={Home}
-                options={{ headerShown: false }}
+                options={{
+                  headerShown: false,
+                  
+                }}
               />
               <Stack.Screen
-                name="ReviewScreen"
+                name="Review Details"
                 component={ReviewScreen}
+                options={{ headerShown: false, cardStyleInterpolator: forFade }}
               ></Stack.Screen>
             </>
           )}

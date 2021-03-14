@@ -59,7 +59,7 @@ export default function Reviews({ navigation }) {
   }, []);
 
   return (
-    <View style={{ flex: 1, paddingLeft: 16, height: "100%" }}>
+    <View style={{ flex: 1, paddingLeft: 16, paddingRight: 16, height: "100%" }}>
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
@@ -107,7 +107,11 @@ export default function Reviews({ navigation }) {
 
               return (
                 <Animated.View style={{ transform: [{ scale }], opacity }}>
-                  <TouchableOpacity onPress={() => navigation.navigate("ReviewScreen")}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("Review Details", { item });
+                    }}
+                  >
                     <Review item={item} />
                   </TouchableOpacity>
                 </Animated.View>
