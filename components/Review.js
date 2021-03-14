@@ -7,10 +7,10 @@ import { exportReviewsToFirestore } from "../API/firebaseMethods.js";
 
 /**
  * Individual review component
- * @param {} param0 
+ * @param {} param0
  */
 
-export default function Review({ item }) {
+export default function Review({ item, navigation }) {
   function getColor(value) {
     let hue = ((value / 5) * 120).toString(10);
     return ["hsl(", hue, ",100%, 70%)"].join("");
@@ -27,73 +27,74 @@ export default function Review({ item }) {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={{ width: "100%" }}>
-        {/* message, created_at, avatar */}
-        <View>
-          <Avatar.Icon size={42} marginBottom={5} icon="head" />
+    
+      <View style={styles.container}>
+        <View style={{ width: "100%" }}>
+          {/* message, created_at, avatar */}
 
-          <View style={styles.mainContainer}>
-            <Text
-              onTextLayout={onTextLayout}
-              numberOfLines={textShown ? undefined : 2}
-              style={{
-                lineHeight: 21,
-                color: "white",
-              }}
-            >
-              {item.message}
-            </Text>
+          <View style={styles.commentContainer}>
+            <View style={styles.comment}>
+              <MaterialIcons name="navigate-next" color="#bbb" size="36" />
+            </View>
+          </View>
+          <View>
+            <Avatar.Icon size={42} marginBottom={5} icon="head" />
 
-            {lengthMore ? (
-              <Text onPress={toggleNumberOfLines} style={styles.read}>
-                {textShown ? "Read less..." : "Read more..."}
+            <View style={styles.mainContainer}>
+              <Text
+                onTextLayout={onTextLayout}
+                numberOfLines={textShown ? undefined : 2}
+                style={{
+                  lineHeight: 21,
+                  color: "white",
+                  paddingRight: 25,
+                }}
+              >
+                {item.message}
               </Text>
-            ) : null}
-          </View>
-        </View>
 
-        <View style={styles.bottomRowContainer}>
-          <View style={styles.thumbsContainer}>
-            <TouchableOpacity>
-              <MaterialIcons name="thumb-up" color="white" size={16} />
-            </TouchableOpacity>
-            <Text style={styles.likes}> 0 {/** Placeholder */}</Text>
-            <TouchableOpacity>
-              <MaterialIcons
-                name="thumb-down"
-                color="#bbb"
-                size={16}
-                style={{ marginLeft: 8 }}
-              />
-            </TouchableOpacity>
+              {lengthMore ? (
+                <Text onPress={toggleNumberOfLines} style={styles.read}>
+                  {textShown ? "Read less..." : "Read more..."}
+                </Text>
+              ) : null}
+            </View>
           </View>
-          <TouchableOpacity>
-            <MaterialIcons
-              name="comment"
-              size={20}
-              color="white"
-              style={styles.comment}
-            />
-          </TouchableOpacity>
+
+          <View style={styles.bottomRowContainer}>
+            <View style={styles.thumbsContainer}>
+              <TouchableOpacity>
+                <MaterialIcons name="thumb-up" color="white" size={16} />
+              </TouchableOpacity>
+              <Text style={styles.likes}> 0 {/** Placeholder */}</Text>
+              <TouchableOpacity>
+                <MaterialIcons
+                  name="thumb-down"
+                  color="#bbb"
+                  size={16}
+                  style={{ marginLeft: 8 }}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        {/** rating */}
+        <View style={styles.rating}>
+          <Rating
+            type="custom"
+            ratingColor={getColor(item.rating)}
+            imageSize={20}
+            tintColor="#35363a"
+            isDisabled
+            startingValue={item.rating}
+            fractions={1}
+          />
+        </View>
+        <View>
+          <Text style={styles.date}>{item.created_at.split("T")[0]}</Text>
         </View>
       </View>
-      {/** rating */}
-      <View style={styles.rating}>
-        <Rating
-          type="custom"
-          ratingColor={getColor(item.rating)}
-          imageSize={20}
-          tintColor="#35363a"
-          isDisabled
-          startingValue={item.rating}
-          fractions={1}
-        />
-      </View>
-      <View>
-        <Text style={styles.date}>{item.created_at.split("T")[0]}</Text>
-      </View>
-    </View>
+
   );
 }
 
@@ -101,11 +102,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
-    borderWidth: 1,
+    // borderWidth: 1,
     // backgroundColor: "#202124",
     backgroundColor: "#35363a",
     borderColor: "#bbb",
-    borderRadius: 10,
+    borderLeftWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    // borderRadius: 10,
     padding: 10,
     marginBottom: 10,
     shadowColor: "#000",
@@ -147,10 +151,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: "#3FA7D6",
   },
-  comment: {
+  commentContainer: {
+    // flex: 1,
     position: "absolute",
-    right: 4,
-    bottom: 0,
+    right: 0,
+    height: "100%",
+  },
+  comment: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   likes: {
     fontSize: 16,

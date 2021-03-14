@@ -3,6 +3,7 @@ import * as Font from "expo-font";
 import Home from "./screens/Home.js";
 import LoginScreen from "./screens/LoginScreen.js";
 import SignUpScreen from "./screens/SignUpScreen.js";
+import ReviewScreen from './screens/ReviewScreen.js';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
@@ -161,6 +162,7 @@ const App = ({ navigation }) => {
                 name="SignUpScreen"
                 component={SignUpScreen}
               ></Stack.Screen>
+              
             </>
           ) : (
             <>
@@ -169,6 +171,10 @@ const App = ({ navigation }) => {
                 component={Home}
                 options={{ headerShown: false }}
               />
+              <Stack.Screen
+                name="ReviewScreen"
+                component={ReviewScreen}
+              ></Stack.Screen>
             </>
           )}
         </Stack.Navigator>

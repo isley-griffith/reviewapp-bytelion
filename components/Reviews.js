@@ -18,13 +18,13 @@ import firebase from "firebase";
  * Displays all reviews from mock API in a Flatlist component
  */
 
-export default function Reviews() {
+export default function Reviews({ navigation }) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const ITEM_SIZE = 134.3;
-  
+
   // useEffect(() => {
   //   fetch(
   //     "https://my-json-server.typicode.com/bytelion/expo_test_mock_api/reviews"
@@ -59,9 +59,7 @@ export default function Reviews() {
   }, []);
 
   return (
-    <View
-      style={{ flex: 1, paddingLeft: 16, paddingRight: 16, height: "100%" }}
-    >
+    <View style={{ flex: 1, paddingLeft: 16, height: "100%" }}>
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
@@ -81,7 +79,7 @@ export default function Reviews() {
             contentContainerStyle={{
               paddingTop: 80,
             }}
-            keyExtractor={( item ) => item.key}
+            keyExtractor={(item) => item.key}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => {
@@ -109,7 +107,9 @@ export default function Reviews() {
 
               return (
                 <Animated.View style={{ transform: [{ scale }], opacity }}>
-                  <Review item={item} />
+                  <TouchableOpacity onPress={() => navigation.navigate("ReviewScreen")}>
+                    <Review item={item} />
+                  </TouchableOpacity>
                 </Animated.View>
               );
             }}

@@ -18,14 +18,16 @@ const Sort = () => {
           justifyContent: "center",
         }}
       >
-        <Menu
-          visible={visible}
-          onDismiss={closeMenu}
-          anchor={<Button onPress={openMenu}>Sort by</Button>}
-        >
-          <Menu.Item onPress={() => {}} title="Item 1" />
-          <Menu.Item onPress={() => {}} title="Item 2" />
-        </Menu>
+        <View>
+          <Menu
+            visible={visible}
+            onDismiss={closeMenu}
+            anchor={<Button onPress={openMenu}>Sort by</Button>}
+          >
+            <Menu.Item onPress={() => {}} title="Item 1" />
+            <Menu.Item onPress={() => {}} title="Item 2" />
+          </Menu>
+        </View>
       </View>
     </Provider>
   );

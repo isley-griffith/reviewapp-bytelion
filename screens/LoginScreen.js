@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   loginContainer: {
     backgroundColor: "white",
-    borderRadius: 10
+    borderRadius: 5
   },
   keyboardAvoid: {
     flex: 1,
