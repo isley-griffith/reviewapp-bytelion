@@ -10,6 +10,8 @@ import { Rating } from "react-native-ratings";
 import { AntDesign } from "@expo/vector-icons";
 import { Avatar } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
+import Review from "../components/Review.js";
+import { SharedElement } from "react-navigation-shared-element";
 
 const ReviewScreen = ({ navigation, route }) => {
   const { item } = route.params;
@@ -38,58 +40,10 @@ const ReviewScreen = ({ navigation, route }) => {
           }}
         />
       </SafeAreaView>
-      <View style={styles.reviewContainer}>
-        <View style={{ width: "100%" }}>
-          <View>
-            <Avatar.Icon size={42} marginBottom={5} icon="head" />
 
-            <View style={styles.mainContainer}>
-              <Text
-                style={{
-                  lineHeight: 21,
-                  color: "white",
-                  paddingRight: 25,
-                }}
-              >
-                {item.message}
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.bottomRowContainer}>
-            <View style={styles.thumbsContainer}>
-              <TouchableOpacity>
-                <MaterialIcons name="thumb-up" color="white" size={16} />
-              </TouchableOpacity>
-              <Text style={styles.likes}> 0 {/** Placeholder */}</Text>
-              <TouchableOpacity>
-                <MaterialIcons
-                  name="thumb-down"
-                  color="#bbb"
-                  size={16}
-                  style={{ marginLeft: 8 }}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-        {/** rating */}
-
-        <View style={styles.rating}>
-          <Rating
-            type="custom"
-            ratingColor={getColor(item.rating)}
-            imageSize={20}
-            tintColor="#35363a"
-            isDisabled
-            startingValue={item.rating}
-            fractions={1}
-          />
-        </View>
-        <View>
-          <Text style={styles.date}>{item.created_at.split("T")[0]}</Text>
-        </View>
-      </View>
+      <SharedElement id="review" style={styles.reviewContainer}>
+        <Review item={item} />
+      </SharedElement>
     </View>
   );
 };
@@ -100,22 +54,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#202124",
   },
   reviewContainer: {
-    flexDirection: "row",
-    // backgroundColor: "#202124",
-    backgroundColor: "#35363a",
-    borderColor: "#bbb",
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 10,
+    position: 'absolute',
+    top: 60,
     margin: 16,
-    marginTop: 32,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 2,
   },
   reviewText: {
     flex: 1,
@@ -163,5 +104,15 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
+
+ReviewScreen.sharedElements = (route, otherRoute, showing) => {
+  const { item } = route.params;
+
+  return [
+    {
+      id: "review",
+    },
+  ];
+};
 
 export default ReviewScreen;

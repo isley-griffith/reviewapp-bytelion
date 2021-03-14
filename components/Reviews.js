@@ -13,12 +13,12 @@ import {
 } from "react-native";
 import Review from "./Review.js";
 import firebase from "firebase";
-
+import { SharedElement } from 'react-navigation-shared-element';
 /**
  * Displays all reviews from mock API in a Flatlist component
  */
 
-export default function Reviews({ navigation }) {
+const Reviews = ({ navigation }) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
@@ -59,7 +59,9 @@ export default function Reviews({ navigation }) {
   }, []);
 
   return (
-    <View style={{ flex: 1, paddingLeft: 16, paddingRight: 16, height: "100%" }}>
+    <View
+      style={{ flex: 1, paddingLeft: 16, paddingRight: 16, height: "100%" }}
+    >
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
@@ -112,7 +114,9 @@ export default function Reviews({ navigation }) {
                       navigation.navigate("Review Details", { item });
                     }}
                   >
-                    <Review item={item} />
+                    <SharedElement id="review">
+                      <Review item={item} />
+                    </SharedElement>
                   </TouchableOpacity>
                 </Animated.View>
               );
@@ -123,3 +127,5 @@ export default function Reviews({ navigation }) {
     </View>
   );
 }
+
+export default Reviews;

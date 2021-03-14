@@ -20,8 +20,9 @@ import Constants from "expo-constants";
 import * as Google from "expo-google-app-auth";
 import firebase from "firebase";
 import { CardStyleInterpolators } from "@react-navigation/stack";
+import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
-const Stack = createStackNavigator();
+const Stack = createSharedElementStackNavigator();
 
 const App = ({ navigation }) => {
   const [userLogged, setUserLogged] = useState(false);
