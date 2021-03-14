@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
-
     // backgroundColor: "#202124",
     backgroundColor: "#35363a",
     borderColor: "#bbb",
