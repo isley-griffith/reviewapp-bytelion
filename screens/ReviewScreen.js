@@ -41,7 +41,7 @@ const ReviewScreen = ({ navigation, route }) => {
         />
       </SafeAreaView>
 
-      <SharedElement id="review" style={styles.reviewContainer}>
+      <SharedElement id={item.key} style={styles.reviewContainer}>
         <Review item={item} />
       </SharedElement>
     </View>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   reviewContainer: {
     position: 'absolute',
-    top: 60,
+    top: 64,
     margin: 16,
   },
   reviewText: {
@@ -105,14 +105,9 @@ const styles = StyleSheet.create({
   },
 });
 
-ReviewScreen.sharedElements = (route, otherRoute, showing) => {
+ReviewScreen.sharedElements = (route) => {
   const { item } = route.params;
-
-  return [
-    {
-      id: "review",
-    },
-  ];
+  return [item.key];
 };
 
 export default ReviewScreen;

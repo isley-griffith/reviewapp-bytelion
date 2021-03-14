@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import Review from "./Review.js";
 import firebase from "firebase";
-import { SharedElement } from 'react-navigation-shared-element';
+import { SharedElement } from "react-navigation-shared-element";
 /**
  * Displays all reviews from mock API in a Flatlist component
  */
@@ -74,10 +74,10 @@ const Reviews = ({ navigation }) => {
         >
           <Animated.FlatList
             data={data}
-            onScroll={Animated.event(
-              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-              { useNativeDriver: true }
-            )}
+            // onScroll={Animated.event(
+            //   [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            //   { useNativeDriver: true }
+            // )}
             contentContainerStyle={{
               paddingTop: 80,
             }}
@@ -85,40 +85,43 @@ const Reviews = ({ navigation }) => {
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => {
-              const inputRange = [
-                -1, // stays same
-                0,
-                ITEM_SIZE * index, // when reaches top edge
-                ITEM_SIZE * (index + 2), // animation finishes after scrolling 2 items
-              ];
-              const opacityInputRange = [
-                -1, // stays same
-                0,
-                ITEM_SIZE * index, // when reaches top edge
-                ITEM_SIZE * (index + 1), // animation finishes after scrolling 1 item
-              ];
+              // const inputRange = [
+              //   -1, // stays same
+              //   0,
+              //   ITEM_SIZE * index, // when reaches top edge
+              //   ITEM_SIZE * (index + 2), // animation finishes after scrolling 2 items
+              // ];
+              // const opacityInputRange = [
+              //   -1, // stays same
+              //   0,
+              //   ITEM_SIZE * index, // when reaches top edge
+              //   ITEM_SIZE * (index + 1), // animation finishes after scrolling 1 item
+              // ];
 
-              const scale = scrollY.interpolate({
-                inputRange,
-                outputRange: [1, 1, 1, 0],
-              });
-              const opacity = scrollY.interpolate({
-                inputRange: opacityInputRange,
-                outputRange: [1, 1, 1, 0],
-              });
+              // const scale = scrollY.interpolate({
+              //   inputRange,
+              //   outputRange: [1, 1, 1, 0],
+              // });
+              // const opacity = scrollY.interpolate({
+              //   inputRange: opacityInputRange,
+              //   outputRange: [1, 1, 1, 0],
+              // });
 
               return (
-                <Animated.View style={{ transform: [{ scale }], opacity }}>
+                <View>
+                  {/* <Animated.View style={{ transform: [{ scale }], opacity }}> */}
                   <TouchableOpacity
                     onPress={() => {
                       navigation.navigate("Review Details", { item });
+                      // console.log(item.key);
                     }}
                   >
-                    <SharedElement id="review">
+                    <SharedElement id={item.key}>
                       <Review item={item} />
                     </SharedElement>
                   </TouchableOpacity>
-                </Animated.View>
+                  {/* </Animated.View> */}
+                </View>
               );
             }}
           />
@@ -126,6 +129,6 @@ const Reviews = ({ navigation }) => {
       )}
     </View>
   );
-}
+};
 
 export default Reviews;
