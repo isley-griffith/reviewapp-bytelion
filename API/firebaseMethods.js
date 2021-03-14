@@ -1,31 +1,38 @@
 import * as firebase from "firebase";
-import "firebase/firestore";
-import { Alert } from "react-native";
 
-export async function exportReviewsToFirestore(
-  id,
-  rating,
-  message,
-  created_at,
-  replies,
-  upvotes,
-  downvotes
-) {
-  try {
-    // const currentUser = firebase.auth().currentUser;
-    const db = firebase.firestore();
-    db.collection("reviews").add({
-      id: id,
-      rating: rating,
-      message: message,
-      created_at: created_at,
-      upvotes,
-      downvotes
+function settingDataTest() {
+  firebase
+    .database()
+    .ref("reviews/" + "0")
+    .set({
+      id: 1,
+      rating: 3.5,
+      message: "This is alright!",
+      created_at: "2020-01-12T01:35:59.820Z",
     });
-    db.collection("reviews").collection("replies").add({
-      replies: replies
-    });
-  } catch (err) {
-    Alert.alert("Something went wrong.", err.message);
-  }
 }
+// settingDataTest();
+
+function retrieveDataTest() {
+  firebase
+    .database()
+    .ref("reviews/")
+    .once("value")
+    .then((snapshot) => {
+      let userData = [];
+      snapshot.forEach((child) => {
+        userData.push(snapshot.val());
+      });
+    });
+}
+
+
+
+// let query = firebase.database().ref("reviews").orderByKey();
+// let result = [];
+// query.once("value").then((snapshot) => {
+//   snapshot.forEach((childSnapshot) => {
+//     let key = childSnapshot.key;
+//     let childData = childSnapshot.val();
+//   })
+// })

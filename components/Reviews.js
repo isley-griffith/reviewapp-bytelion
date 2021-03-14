@@ -12,6 +12,8 @@ import {
   Button,
 } from "react-native";
 import Review from "./Review.js";
+import retrieveDataTest from "../API/firebaseMethods.js";
+import firebase from "firebase";
 
 /**
  * Displays all reviews from mock API in a Flatlist component
@@ -23,17 +25,38 @@ export default function Reviews() {
 
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const ITEM_SIZE = 134.3;
-  useEffect(() => {
-    fetch(
-      "https://my-json-server.typicode.com/bytelion/expo_test_mock_api/reviews"
-    )
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
+  // useEffect(() => {
+  //   fetch(
+  //     "https://my-json-server.typicode.com/bytelion/expo_test_mock_api/reviews"
+  //   )
+  //     .then((response) => response.json())
+  //     .then((json) => setData(json))
+  //     .catch((error) => console.error(error))
+  //     .finally(() => setLoading(false));
+  //   const dataRef = retrieveDataTest();
+  //   setData(dataRef);
+  //   console.log(data);
+  // }, []);
 
-  
+  useEffect(() => {
+    firebase
+      .database()
+      .ref("reviews/")
+      .on("value", (snapshot) => {
+        var li = [];
+        snapshot.forEach((child) => {
+          li.push({
+            key: child.key,
+            created_at: child.val().created_at,
+            message: child.val().message,
+            rating: child.val().rating,
+          });
+        });
+        setLoading(false);
+        setData(li);
+        console.log(data[0]);
+      });
+  }, []);
 
   return (
     <View
@@ -58,7 +81,7 @@ export default function Reviews() {
             contentContainerStyle={{
               paddingTop: 60,
             }}
-            keyExtractor={({ id }) => id.toString()}
+            keyExtractor={( item ) => item.key}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => {
@@ -87,6 +110,10 @@ export default function Reviews() {
               return (
                 <Animated.View style={{ transform: [{ scale }], opacity }}>
                   <Review item={item} />
+                  
+                  {/* <View>
+                    <Text> {item.rating} </Text>
+                  </View> */}
                 </Animated.View>
               );
             }}
