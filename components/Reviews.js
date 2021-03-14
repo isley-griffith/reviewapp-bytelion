@@ -12,7 +12,6 @@ import {
   Button,
 } from "react-native";
 import Review from "./Review.js";
-import retrieveDataTest from "../API/firebaseMethods.js";
 import firebase from "firebase";
 
 /**
@@ -25,6 +24,7 @@ export default function Reviews() {
 
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const ITEM_SIZE = 134.3;
+  
   // useEffect(() => {
   //   fetch(
   //     "https://my-json-server.typicode.com/bytelion/expo_test_mock_api/reviews"
@@ -79,7 +79,7 @@ export default function Reviews() {
               { useNativeDriver: true }
             )}
             contentContainerStyle={{
-              paddingTop: 60,
+              paddingTop: 80,
             }}
             keyExtractor={( item ) => item.key}
             showsVerticalScrollIndicator={false}
@@ -110,10 +110,6 @@ export default function Reviews() {
               return (
                 <Animated.View style={{ transform: [{ scale }], opacity }}>
                   <Review item={item} />
-                  
-                  {/* <View>
-                    <Text> {item.rating} </Text>
-                  </View> */}
                 </Animated.View>
               );
             }}

@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 import Firebase from "../config/Firebase.js";
-import { TextInput, HelperText} from "react-native-paper";
+import { TextInput, HelperText } from "react-native-paper";
 import { Button as RNPButton } from "react-native-paper";
 import mainContext from "../context/mainContext.js";
 import SignUpScreen from "./SignUpScreen.js";
@@ -30,18 +30,18 @@ const LoginScreen = ({ navigation }) => {
    */
   const badEmailChecker = () => {
     if (email != "") {
-      return (!email.includes('@') | !email.includes('.'));
+      return !email.includes("@") | !email.includes(".");
     }
     return null;
-  }
+  };
   /**
    * Placeholder bad password checking function
    */
   const badPasswordChecker = () => {
-    if (password.length > 1){
-      return !password
+    if (password.length > 1) {
+      return !password;
     }
-  }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -65,7 +65,6 @@ const LoginScreen = ({ navigation }) => {
           </View>
           <View style={styles.inputContainer}>
             <TextInput
-
               onChangeText={(password) => setPassword(password)}
               value={password}
               secureTextEntry={true}
@@ -77,11 +76,15 @@ const LoginScreen = ({ navigation }) => {
               Password is required.*
             </HelperText>
           </View>
-          <RNPButton
-            onPress={() => handleLogin(email, password)}
-            mode="contained"
-            icon="login"
-          >Login</RNPButton>
+          <View style={styles.loginContainer}>
+            <RNPButton
+              onPress={() => handleLogin(email, password)}
+              icon="login"
+            >
+              Login
+            </RNPButton>
+          </View>
+
           <View style={styles.signUpContainer}>
             <Text>Don't have an account?</Text>
             <RNPButton onPress={() => navigation.navigate("SignUpScreen")}>
@@ -89,9 +92,15 @@ const LoginScreen = ({ navigation }) => {
             </RNPButton>
             {/* <View style={styles.socialContainer}></View> */}
           </View>
-          <RNPButton style={styles.googleButtonStyle} onPress={() => handleGLogin()} mode="contained" icon="google">Login with Google</RNPButton>
+          <RNPButton
+            style={styles.googleButtonStyle}
+            onPress={() => handleGLogin()}
+            mode="contained"
+            icon="google"
+          >
+            Login with Google
+          </RNPButton>
         </View>
-        
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
@@ -106,7 +115,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#35363a"
+    backgroundColor: "#35363a",
   },
   inputContainer: {
     width: "80%",
@@ -117,15 +126,19 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: "center",
   },
+  loginContainer: {
+    backgroundColor: "white",
+    borderRadius: 10
+  },
   keyboardAvoid: {
-    flex: 1
+    flex: 1,
   },
   socialContainer: {
-    borderBottomColor: 'black',
-    borderBottomWidth: 1
+    borderBottomColor: "black",
+    borderBottomWidth: 1,
   },
   googleButtonStyle: {
-    backgroundColor: '#4285F4',
+    backgroundColor: "#4285F4",
     marginTop: 20,
   },
 });
