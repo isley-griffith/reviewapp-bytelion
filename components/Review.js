@@ -19,6 +19,7 @@ export default function Review({ item, navigation }) {
   // const [textShown, setTextShown] = useState(false); // to show remaining Text
   // const [lengthMore, setLengthMore] = useState(false); // to show the "Read more & Less Line"
   const [upvote, setUpvote] = useState(0);
+  const [comment, setComment] = useState([]);
   // const toggleNumberOfLines = () => {
     // To toggle the show text or hide it
     // setTextShown(!textShown);
@@ -108,7 +109,7 @@ export default function Review({ item, navigation }) {
           fractions={1}
         />
       </View>
-      <View>
+      <View style={styles.date}>
         <Text style={styles.date}>{item.created_at.split("T")[0]}</Text>
       </View>
     </View>
@@ -155,8 +156,8 @@ const styles = StyleSheet.create({
   date: {
     opacity: 0.3,
     position: "absolute",
-    right: 128,
-    top: 12,
+    right: '5%',
+    bottom: '7.5%',
     color: "white",
   },
   read: {
