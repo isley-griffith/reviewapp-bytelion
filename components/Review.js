@@ -13,16 +13,18 @@ import firebase from "firebase";
 
 export default function Review({ item, navigation }) {
   const [upvote, setUpvote] = useState(0);
-
+  const [user, setUser] = useState("");
+  const [upvotedUsers, setUpvotedUsers] = useState([]);
   const handleUpvote = () => {
+    // let upvoteCount = Object.keys.length;
+    addCurrentUserToUpvoteList();
     setUpvote(upvote + 1);
     firebase
       .database()
-      .ref("reviews/" + item.key)
+      .ref(`reviews/${item.key}`)
       .update({
-        upvotes: upvote,
+        upvotes: upvoteCount,
       });
-
   };
 
   const handleDownvote = () => {
@@ -35,6 +37,26 @@ export default function Review({ item, navigation }) {
       });
   };
 
+  const addCurrentUserToUpvoteList = () => {
+    const currUID = firebase.auth().currentUser.uid;
+    let users = {};
+    let upvotedList = firebase.database().ref(`reviews/${item.key}/userList`);
+
+    upvotedList.on("value", function (snapshot) {
+      users = snapshot.val() || {};
+      if (!(currUID in users)) {
+        users[currUID] = true;
+        firebase
+          .database()
+          .ref("reviews/" + item.key)
+          .update({ userList: users });
+      }
+    });
+  };
+
+  // length of object with Object.keys.length
+  // default upvote count of 0, increment and decrement depending on whether or not line 47 is satisfied
+
   return (
     <View style={styles.container}>
       <View style={{ width: "100%" }}>
@@ -45,7 +67,6 @@ export default function Review({ item, navigation }) {
 
           <View style={styles.mainContainer}>
             <Text
-            
               style={{
                 lineHeight: 21,
                 color: "white",
@@ -134,8 +155,8 @@ const styles = StyleSheet.create({
   date: {
     opacity: 0.3,
     position: "absolute",
-    right: '5%',
-    bottom: '7.5%',
+    right: "5%",
+    bottom: "7.5%",
     color: "white",
   },
   read: {

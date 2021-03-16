@@ -19,6 +19,8 @@ const Comment = ({ item }) => {
     )
   }
 
+  
+
   const handleSubmit = (text) => {
     setComment(text);
     setCommentList(...commentList, comment);
@@ -41,7 +43,7 @@ const Comment = ({ item }) => {
       </TouchableOpacity>
 
 
-        {/** TODO: retrieve comments from Firebase and display*/}
+        {/** TODO: retrieve comments from Firebase and display*/} 
         <Text>{item.comments}</Text>
 
     </View>
