@@ -12,22 +12,7 @@ import firebase from "firebase";
  */
 
 export default function Review({ item, navigation }) {
-  // function getColor(value) {
-  //   let hue = ((value / 5) * 120).toString(10); // converting to percentage then multiplying by 120
-  //   return ["hsl(", hue, ", 100%, 70%)"].join("");
-  // }
-  // const [textShown, setTextShown] = useState(false); // to show remaining Text
-  // const [lengthMore, setLengthMore] = useState(false); // to show the "Read more & Less Line"
   const [upvote, setUpvote] = useState(0);
-  const [comment, setComment] = useState([]);
-  // const toggleNumberOfLines = () => {
-    // To toggle the show text or hide it
-    // setTextShown(!textShown);
-  // };
-
-  const onTextLayout = useCallback((e) => {
-    setLengthMore(e.nativeEvent.lines.length > 1); // to check if text is more than 1 line
-  }, []);
 
   const handleUpvote = () => {
     setUpvote(upvote + 1);
@@ -37,7 +22,7 @@ export default function Review({ item, navigation }) {
       .update({
         upvotes: upvote,
       });
-    // console.log(item.rating)
+
   };
 
   const handleDownvote = () => {
@@ -60,8 +45,7 @@ export default function Review({ item, navigation }) {
 
           <View style={styles.mainContainer}>
             <Text
-              // onTextLayout={onTextLayout}
-              // numberOfLines={textShown ? undefined : 2}
+            
               style={{
                 lineHeight: 21,
                 color: "white",
@@ -70,12 +54,6 @@ export default function Review({ item, navigation }) {
             >
               {item.message}
             </Text>
-
-            {/* {lengthMore ? (
-              <Text onPress={toggleNumberOfLines} style={styles.read}>
-                {textShown ? "Read less..." : "Read more..."}
-              </Text>
-            ) : null} */}
           </View>
         </View>
 
