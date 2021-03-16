@@ -42,10 +42,11 @@ const Comment = ({ item }) => {
       <TouchableOpacity onPress={() => handleSubmit(comment)}>
         <Button>Comment</Button>
       </TouchableOpacity>
-      {/* <View style={styles.postedCommentContainer}> */}
 
+
+        {/** TODO: retrieve comments from Firebase and display*/}
         <Text>{item.comments}</Text>
-      {/* </View> */}
+
     </View>
   );
 };
