@@ -7,13 +7,16 @@ import {
   Animated,
   StyleSheet,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Easing,
   SafeAreaView,
   Button,
+  LogBox,
 } from "react-native";
 import Review from "./Review.js";
 import firebase from "firebase";
 import { SharedElement } from "react-navigation-shared-element";
+LogBox.ignoreAllLogs();
 /**
  * Displays all reviews from mock API in a Flatlist component
  */
@@ -25,6 +28,7 @@ const Reviews = ({ navigation }) => {
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const ITEM_SIZE = 134.3;
 
+  // imported to Firebase instead for more control
   // useEffect(() => {
   //   fetch(
   //     "https://my-json-server.typicode.com/bytelion/expo_test_mock_api/reviews"
@@ -54,7 +58,7 @@ const Reviews = ({ navigation }) => {
         });
         setLoading(false);
         setData(li);
-        console.log(data[0]);
+        // console.log(data[0]);
       });
   }, []);
 
@@ -74,10 +78,6 @@ const Reviews = ({ navigation }) => {
         >
           <Animated.FlatList
             data={data}
-            // onScroll={Animated.event(
-            //   [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-            //   { useNativeDriver: true }
-            // )}
             contentContainerStyle={{
               paddingTop: 80,
             }}
@@ -85,42 +85,17 @@ const Reviews = ({ navigation }) => {
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => {
-              // const inputRange = [
-              //   -1, // stays same
-              //   0,
-              //   ITEM_SIZE * index, // when reaches top edge
-              //   ITEM_SIZE * (index + 2), // animation finishes after scrolling 2 items
-              // ];
-              // const opacityInputRange = [
-              //   -1, // stays same
-              //   0,
-              //   ITEM_SIZE * index, // when reaches top edge
-              //   ITEM_SIZE * (index + 1), // animation finishes after scrolling 1 item
-              // ];
-
-              // const scale = scrollY.interpolate({
-              //   inputRange,
-              //   outputRange: [1, 1, 1, 0],
-              // });
-              // const opacity = scrollY.interpolate({
-              //   inputRange: opacityInputRange,
-              //   outputRange: [1, 1, 1, 0],
-              // });
-
               return (
                 <View>
-                  {/* <Animated.View style={{ transform: [{ scale }], opacity }}> */}
-                  <TouchableOpacity
+                  <TouchableWithoutFeedback
                     onPress={() => {
                       navigation.navigate("Review Details", { item });
-                      // console.log(item.key);
                     }}
                   >
                     <SharedElement id={item.key}>
                       <Review item={item} />
                     </SharedElement>
-                  </TouchableOpacity>
-                  {/* </Animated.View> */}
+                  </TouchableWithoutFeedback>
                 </View>
               );
             }}

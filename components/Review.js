@@ -4,6 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Avatar } from "react-native-paper";
 import { Rating } from "react-native-ratings";
 import { exportReviewsToFirestore } from "../API/firebaseMethods.js";
+import firebase from "firebase";
 
 /**
  * Individual review component
@@ -11,20 +12,42 @@ import { exportReviewsToFirestore } from "../API/firebaseMethods.js";
  */
 
 export default function Review({ item, navigation }) {
-  function getColor(value) {
-    let hue = ((value / 5) * 120).toString(10);
-    return ["hsl(", hue, ",100%, 70%)"].join("");
-  }
-  const [textShown, setTextShown] = useState(false); // to show remaining Text
-  const [lengthMore, setLengthMore] = useState(false); // to show the "Read more & Less Line"
-  const toggleNumberOfLines = () => {
+  // function getColor(value) {
+  //   let hue = ((value / 5) * 120).toString(10); // converting to percentage then multiplying by 120
+  //   return ["hsl(", hue, ", 100%, 70%)"].join("");
+  // }
+  // const [textShown, setTextShown] = useState(false); // to show remaining Text
+  // const [lengthMore, setLengthMore] = useState(false); // to show the "Read more & Less Line"
+  const [upvote, setUpvote] = useState(0);
+  // const toggleNumberOfLines = () => {
     // To toggle the show text or hide it
-    setTextShown(!textShown);
-  };
+    // setTextShown(!textShown);
+  // };
 
   const onTextLayout = useCallback((e) => {
     setLengthMore(e.nativeEvent.lines.length > 1); // to check if text is more than 1 line
   }, []);
+
+  const handleUpvote = () => {
+    setUpvote(upvote + 1);
+    firebase
+      .database()
+      .ref("reviews/" + item.key)
+      .update({
+        upvotes: upvote,
+      });
+    // console.log(item.rating)
+  };
+
+  const handleDownvote = () => {
+    setUpvote(upvote - 1);
+    firebase
+      .database()
+      .ref("reviews/" + item.key)
+      .update({
+        upvotes: upvote,
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -36,8 +59,8 @@ export default function Review({ item, navigation }) {
 
           <View style={styles.mainContainer}>
             <Text
-              onTextLayout={onTextLayout}
-              numberOfLines={textShown ? undefined : 2}
+              // onTextLayout={onTextLayout}
+              // numberOfLines={textShown ? undefined : 2}
               style={{
                 lineHeight: 21,
                 color: "white",
@@ -47,21 +70,22 @@ export default function Review({ item, navigation }) {
               {item.message}
             </Text>
 
-            {lengthMore ? (
+            {/* {lengthMore ? (
               <Text onPress={toggleNumberOfLines} style={styles.read}>
                 {textShown ? "Read less..." : "Read more..."}
               </Text>
-            ) : null}
+            ) : null} */}
           </View>
         </View>
 
         <View style={styles.bottomRowContainer}>
           <View style={styles.thumbsContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleUpvote()}>
               <MaterialIcons name="thumb-up" color="white" size={16} />
             </TouchableOpacity>
-            <Text style={styles.likes}> 0 {/** Placeholder */}</Text>
-            <TouchableOpacity>
+            <Text style={styles.likes}>{item.upvotes} </Text>
+
+            <TouchableOpacity onPress={() => handleDownvote()}>
               <MaterialIcons
                 name="thumb-down"
                 color="#bbb"
@@ -76,7 +100,7 @@ export default function Review({ item, navigation }) {
       <View style={styles.rating}>
         <Rating
           type="custom"
-          ratingColor={getColor(item.rating)}
+          ratingColor="#ECDD7B"
           imageSize={20}
           tintColor="#35363a"
           isDisabled
