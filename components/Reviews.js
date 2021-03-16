@@ -17,31 +17,16 @@ import Comment from "./Comment.js";
 import Review from "./Review.js";
 import firebase from "firebase";
 import { SharedElement } from "react-navigation-shared-element";
-// LogBox.ignoreAllLogs();
+
 /**
  * Displays all reviews from mock API in a Flatlist component
  */
-
 const Reviews = ({ navigation }) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const ITEM_SIZE = 134.3;
-
-  // imported to Firebase instead for more control
-  // useEffect(() => {
-  //   fetch(
-  //     "https://my-json-server.typicode.com/bytelion/expo_test_mock_api/reviews"
-  //   )
-  //     .then((response) => response.json())
-  //     .then((json) => setData(json))
-  //     .catch((error) => console.error(error))
-  //     .finally(() => setLoading(false));
-  //   const dataRef = retrieveDataTest();
-  //   setData(dataRef);
-  //   console.log(data);
-  // }, []);
 
   useEffect(() => {
     firebase
@@ -59,7 +44,6 @@ const Reviews = ({ navigation }) => {
         });
         setLoading(false);
         setData(li);
-        // console.log(data[0]);
       });
   }, []);
 

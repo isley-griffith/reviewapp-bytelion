@@ -4,8 +4,6 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  FlatList,
-  ScrollView
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import firebase from "firebase";
@@ -30,7 +28,6 @@ const Comment = ({ item }) => {
       .update({
         comments: commentList,
       });
-    // console.log(item.rating)
   };
 
   return (
