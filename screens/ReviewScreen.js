@@ -12,6 +12,7 @@ import { Avatar } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
 import Review from "../components/Review.js";
 import { SharedElement } from "react-navigation-shared-element";
+import Comment from '../components/Comment.js';
 
 const ReviewScreen = ({ navigation, route }) => {
   const { item } = route.params;
@@ -43,6 +44,7 @@ const ReviewScreen = ({ navigation, route }) => {
 
       <SharedElement id={item.key} style={styles.reviewContainer}>
         <Review item={item} />
+        <Comment item={item} />
       </SharedElement>
     </View>
   );

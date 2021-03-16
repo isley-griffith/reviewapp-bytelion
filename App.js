@@ -47,30 +47,30 @@ const App = ({ navigation }) => {
     return authListener;
   }, []);
 
-  /**
-   * Function that handles Firebase authentication for login
-   * @param {*} email
-   * @param {*} password
-   */
+  // /**
+  //  * Function that handles Firebase authentication for login
+  //  * @param {*} email
+  //  * @param {*} password
+  //  */
 
-  const doLogin = async (email, password) => {
-    setIsLoading(true);
-    Firebase.auth()
-      .signInWithEmailAndPassword(email, password)
-      .catch((error) => console.log(error));
-  };
+  // const doLogin = async (email, password) => {
+  //   setIsLoading(true);
+  //   Firebase.auth()
+  //     .signInWithEmailAndPassword(email, password)
+  //     .catch((error) => console.log(error));
+  // };
 
-  /**
-   * Function that handles Firebase authentication for signup
-   * @param {*} email
-   * @param {*} password
-   */
-  const doSignup = async (email, password) => {
-    setIsLoading(true);
-    Firebase.auth()
-      .createUserWithEmailAndPassword(email, password)
-      .catch((error) => console.log(error));
-  };
+  // /**
+  //  * Function that handles Firebase authentication for signup
+  //  * @param {*} email
+  //  * @param {*} password
+  //  */
+  // const doSignup = async (email, password) => {
+  //   setIsLoading(true);
+  //   Firebase.auth()
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .catch((error) => console.log(error));
+  // };
 
   /**
    * Function that handles Google login OAuth2.0 with Firebase auth
@@ -108,28 +108,28 @@ const App = ({ navigation }) => {
     () => ({
       userProfile: { userProfile },
       signOutUser: () => Firebase.auth().signOut(),
-      handleLogin: (email, password) => {
-        if (!email) {
-          Alert.alert("Email field is required.");
-        }
-        if (!password) {
-          Alert.alert("Password field is required.");
-        }
-        if (email && password) {
-          doLogin(email, password);
-        }
-      },
-      handleSignup: (email, password) => {
-        if (!email) {
-          Alert.alert("Email field is required.");
-        }
-        if (!password) {
-          Alert.alert("Password field is required.");
-        }
-        if (email && password) {
-          doSignup(email, password);
-        }
-      },
+      // handleLogin: (email, password) => {
+      //   if (!email) {
+      //     Alert.alert("Email field is required.");
+      //   }
+      //   if (!password) {
+      //     Alert.alert("Password field is required.");
+      //   }
+      //   if (email && password) {
+      //     doLogin(email, password);
+      //   }
+      // },
+      // handleSignup: (email, password) => {
+      //   if (!email) {
+      //     Alert.alert("Email field is required.");
+      //   }
+      //   if (!password) {
+      //     Alert.alert("Password field is required.");
+      //   }
+      //   if (email && password) {
+      //     doSignup(email, password);
+      //   }
+      // },
       handleGLogin: () => {
         Glogin();
       },

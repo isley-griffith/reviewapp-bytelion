@@ -11,12 +11,13 @@ import {
   Easing,
   SafeAreaView,
   Button,
-  LogBox,
 } from "react-native";
+
+import Comment from "./Comment.js";
 import Review from "./Review.js";
 import firebase from "firebase";
 import { SharedElement } from "react-navigation-shared-element";
-LogBox.ignoreAllLogs();
+// LogBox.ignoreAllLogs();
 /**
  * Displays all reviews from mock API in a Flatlist component
  */
@@ -76,7 +77,7 @@ const Reviews = ({ navigation }) => {
             justifyContent: "space-between",
           }}
         >
-          <Animated.FlatList
+          <FlatList
             data={data}
             contentContainerStyle={{
               paddingTop: 80,
