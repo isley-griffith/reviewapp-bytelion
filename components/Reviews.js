@@ -40,6 +40,7 @@ const Reviews = ({ navigation }) => {
             created_at: child.val().created_at,
             message: child.val().message,
             rating: child.val().rating,
+            upvotes: child.val().upvotes
           });
         });
         setLoading(false);

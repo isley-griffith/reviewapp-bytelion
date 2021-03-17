@@ -40,9 +40,7 @@ export default function Review({ item, navigation }) {
           .database()
           .ref(`reviews/${item.key}/upvoteUserList/${currUID}`)
           .remove(); // remove the user from the upvoteUserList in Firebase
-
-        delete users[currUID];
-
+        delete users[currUID]; // removing from users object
         firebase
           .database()
           .ref(`reviews/${item.key}`)
@@ -51,9 +49,6 @@ export default function Review({ item, navigation }) {
           });
       } else if (!(currUID in users)) {
         users[currUID] = true;
-
-        console.log("Inside below: " + Object.keys(users).length);
-
         firebase
           .database()
           .ref(`reviews/${item.key}`)
@@ -71,6 +66,7 @@ export default function Review({ item, navigation }) {
       .ref(`reviews/${item.key}/upvoteUserList`);
     upvotedList.once("value", function (snapshot) {
       let users = snapshot.val() || {};
+      console.log(Object.keys(users).length);
       return Object.keys(users).length;
     });
   };
@@ -139,7 +135,7 @@ export default function Review({ item, navigation }) {
             <TouchableOpacity onPress={() => handleUpvote()}>
               <MaterialIcons name="thumb-up" color="white" size={16} />
             </TouchableOpacity>
-            <Text style={styles.likes}></Text>
+            <Text style={styles.likes}> {item.upvotes}</Text>
 
             <TouchableOpacity onPress={() => handleDownvote()}>
               <MaterialIcons
