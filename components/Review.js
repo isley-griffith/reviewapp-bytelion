@@ -12,10 +12,9 @@ import firebase from "firebase";
  */
 
 export default function Review({ item, navigation }) {
-  const [upvote, setUpvote] = useState(0);
-  const [user, setUser] = useState("");
-  const [upvotedUsers, setUpvotedUsers] = useState([]);
-
+  // const [upvote, setUpvote] = useState(0);
+  // const [user, setUser] = useState("");
+  // const [upvotedUsers, setUpvotedUsers] = useState([]);
   const handleUpvote = () => {
     addCurrentUserToUpvoteList();
   };
@@ -26,6 +25,7 @@ export default function Review({ item, navigation }) {
 
   const addCurrentUserToUpvoteList = () => {
     const currUID = firebase.auth().currentUser.uid;
+    
     let users = {};
     let upvotedList = firebase
       .database()
@@ -41,6 +41,7 @@ export default function Review({ item, navigation }) {
           .ref(`reviews/${item.key}/upvoteUserList/${currUID}`)
           .remove(); // remove the user from the upvoteUserList in Firebase
         delete users[currUID]; // removing from users object
+
         firebase
           .database()
           .ref(`reviews/${item.key}`)
@@ -49,6 +50,7 @@ export default function Review({ item, navigation }) {
           });
       } else if (!(currUID in users)) {
         users[currUID] = true;
+
         firebase
           .database()
           .ref(`reviews/${item.key}`)
@@ -94,7 +96,7 @@ export default function Review({ item, navigation }) {
       if (currUID in users) {
         // let upvoteCount = Object.keys(users).length;
         delete users[currUID];
-        users[currUID] = true;
+        // users[currUID] = true;
         firebase
           .database()
           .ref(`reviews/${item.key}`)
@@ -136,7 +138,6 @@ export default function Review({ item, navigation }) {
               <MaterialIcons name="thumb-up" color="white" size={16} />
             </TouchableOpacity>
             <Text style={styles.likes}> {item.upvotes}</Text>
-
             <TouchableOpacity onPress={() => handleDownvote()}>
               <MaterialIcons
                 name="thumb-down"

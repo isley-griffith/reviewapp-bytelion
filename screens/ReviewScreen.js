@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -13,14 +13,11 @@ import { MaterialIcons } from "@expo/vector-icons";
 import Review from "../components/Review.js";
 import { SharedElement } from "react-navigation-shared-element";
 import Comment from '../components/Comment.js';
+import firebase from "firebase";
+
 
 const ReviewScreen = ({ navigation, route }) => {
   const { item } = route.params;
-
-  function getColor(value) {
-    let hue = ((value / 5) * 120).toString(10);
-    return ["hsl(", hue, ",100%, 70%)"].join("");
-  }
 
   return (
     <View style={styles.container}>
@@ -35,7 +32,7 @@ const ReviewScreen = ({ navigation, route }) => {
             right: 10,
             zIndex: 100,
           }}
-          color={"white"}
+          color="white"
           onPress={() => {
             navigation.goBack();
           }}
@@ -49,6 +46,8 @@ const ReviewScreen = ({ navigation, route }) => {
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -111,5 +110,7 @@ ReviewScreen.sharedElements = (route) => {
   const { item } = route.params;
   return [item.key];
 };
+
+
 
 export default ReviewScreen;

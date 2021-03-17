@@ -108,28 +108,6 @@ const App = ({ navigation }) => {
     () => ({
       userProfile: { userProfile },
       signOutUser: () => Firebase.auth().signOut(),
-      // handleLogin: (email, password) => {
-      //   if (!email) {
-      //     Alert.alert("Email field is required.");
-      //   }
-      //   if (!password) {
-      //     Alert.alert("Password field is required.");
-      //   }
-      //   if (email && password) {
-      //     doLogin(email, password);
-      //   }
-      // },
-      // handleSignup: (email, password) => {
-      //   if (!email) {
-      //     Alert.alert("Email field is required.");
-      //   }
-      //   if (!password) {
-      //     Alert.alert("Password field is required.");
-      //   }
-      //   if (email && password) {
-      //     doSignup(email, password);
-      //   }
-      // },
       handleGLogin: () => {
         Glogin();
       },
