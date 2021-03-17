@@ -18,9 +18,6 @@ const Comment = ({ item }) => {
       </View>
     )
   }
-
-  
-
   const handleSubmit = (text) => {
     setComment(text);
     setCommentList(...commentList, comment);
