@@ -8,6 +8,7 @@ import Comment from "../components/Comment.js";
 import firebase from "firebase";
 import CommentList from "../components/CommentList.js";
 
+
 const ReviewScreen = ({ navigation, route }) => {
   const { item } = route.params;
 
@@ -34,7 +35,8 @@ const ReviewScreen = ({ navigation, route }) => {
       <SharedElement id={item.key} style={styles.reviewContainer}>
         <Review item={item} />
         <Comment item={item} />
-        <Text style={{ color: "white" }}>Comments: </Text>
+        <Text style={styles.commentHeader}>Comments: </Text>
+
         <CommentList item={item}/>
       </SharedElement>
     </View>
@@ -96,6 +98,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "white",
   },
+  commentHeader: {
+    fontWeight: 'bold',
+    color: 'white'
+  }
 });
 
 ReviewScreen.sharedElements = (route) => {

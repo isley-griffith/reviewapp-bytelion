@@ -61,6 +61,7 @@ const Reviews = ({ navigation }) => {
             data={data}
             contentContainerStyle={{
               paddingTop: 80,
+              paddingBottom: 80,
             }}
             keyExtractor={(item) => item.key}
             showsVerticalScrollIndicator={false}
