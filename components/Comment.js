@@ -4,7 +4,7 @@ import { TextInput, Button } from "react-native-paper";
 import firebase from "firebase";
 
 const Comment = ({ item }) => {
-  const [comment, setComment] = useState([]);
+  const [comment, setComment] = useState('');
   const ItemView = (item, key) => {
     return (
       <View key={key}>
@@ -41,7 +41,7 @@ const Comment = ({ item }) => {
     <View style={styles.container}>
       <TextInput
         placeholder={`What do you think about this review?`}
-        onChangeText={(comment) => setComment([comment])}
+        onChangeText={(comment) => setComment(comment)}
       />
       <TouchableOpacity onPress={() => handleSubmit(comment)}>
         <Button>Comment</Button>
