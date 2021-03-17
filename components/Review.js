@@ -68,7 +68,7 @@ export default function Review({ item, navigation }) {
       .ref(`reviews/${item.key}/upvoteUserList`);
     upvotedList.once("value", function (snapshot) {
       let users = snapshot.val() || {};
-      console.log(Object.keys(users).length);
+      // console.log(Object.keys(users).length);
       return Object.keys(users).length;
     });
   };

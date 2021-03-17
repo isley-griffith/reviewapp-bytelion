@@ -3,14 +3,8 @@ import {
   View,
   Text,
   FlatList,
-  Image,
   Animated,
-  StyleSheet,
-  TouchableOpacity,
   TouchableWithoutFeedback,
-  Easing,
-  SafeAreaView,
-  Button,
 } from "react-native";
 
 import Comment from "./Comment.js";
@@ -33,7 +27,7 @@ const Reviews = ({ navigation }) => {
       .database()
       .ref("reviews/")
       .on("value", (snapshot) => {
-        var li = [];
+        let li = [];
         snapshot.forEach((child) => {
           li.push({
             key: child.key,
@@ -43,6 +37,7 @@ const Reviews = ({ navigation }) => {
             upvotes: child.val().upvotes
           });
         });
+
         setLoading(false);
         setData(li);
       });

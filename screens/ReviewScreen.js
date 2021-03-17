@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  TouchableOpacity,
-} from "react-native";
-import { Rating } from "react-native-ratings";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+
 import { AntDesign } from "@expo/vector-icons";
-import { Avatar } from "react-native-paper";
-import { MaterialIcons } from "@expo/vector-icons";
 import Review from "../components/Review.js";
 import { SharedElement } from "react-navigation-shared-element";
-import Comment from '../components/Comment.js';
+import Comment from "../components/Comment.js";
 import firebase from "firebase";
-
+import CommentList from "../components/CommentList.js";
 
 const ReviewScreen = ({ navigation, route }) => {
   const { item } = route.params;
@@ -42,12 +34,12 @@ const ReviewScreen = ({ navigation, route }) => {
       <SharedElement id={item.key} style={styles.reviewContainer}>
         <Review item={item} />
         <Comment item={item} />
+        <Text style={{ color: "white" }}>Comments: </Text>
+        <CommentList item={item}/>
       </SharedElement>
     </View>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -55,7 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#202124",
   },
   reviewContainer: {
-    position: 'absolute',
+    position: "absolute",
     top: 64,
     margin: 16,
   },
@@ -110,7 +102,5 @@ ReviewScreen.sharedElements = (route) => {
   const { item } = route.params;
   return [item.key];
 };
-
-
 
 export default ReviewScreen;

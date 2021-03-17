@@ -4,24 +4,17 @@ import { TextInput, Button } from "react-native-paper";
 import firebase from "firebase";
 
 const Comment = ({ item }) => {
-  const [comment, setComment] = useState('');
-  const ItemView = (item, key) => {
-    return (
-      <View key={key}>
-        <Text></Text>
-      </View>
-    );
-  };
+  const [comment, setComment] = useState("");
 
   const handleSubmit = (text) => {
     let commentsObj = {};
     let commentsList = firebase.database().ref(`reviews/${item.key}/comments`);
-    const currUID = firebase.auth().currentUser.uid;
+    const name = firebase.auth().currentUser.displayName;
 
     commentsList.once("value", function (snapshot) {
       commentsObj = snapshot.val() || {};
-      if (commentsObj[currUID] == null) {
-        commentsObj[currUID] = comment;
+      if (commentsObj[name] == null) {
+        commentsObj[name] = comment;
         firebase
           .database()
           .ref(`reviews/${item.key}`)
@@ -44,11 +37,13 @@ const Comment = ({ item }) => {
         onChangeText={(comment) => setComment(comment)}
       />
       <TouchableOpacity onPress={() => handleSubmit(comment)}>
-        <Button>Comment</Button>
+        <Button>Reply</Button>
       </TouchableOpacity>
 
       {/** TODO: retrieve comments from Firebase and display*/}
-      <Text>{item.comments}</Text>
+      <View>
+        {/* <Text>{item.comments}</Text> */}
+      </View>
     </View>
   );
 };

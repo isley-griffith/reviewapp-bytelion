@@ -8,11 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
   View,
-  StatusBar,
-  SafeAreaView,
-  Appearance,
   ActivityIndicator,
-  Alert,
 } from "react-native";
 import mainContext from "./context/mainContext";
 import Firebase from "./config/Firebase.js";
@@ -47,31 +43,6 @@ const App = ({ navigation }) => {
     return authListener;
   }, []);
 
-  // /**
-  //  * Function that handles Firebase authentication for login
-  //  * @param {*} email
-  //  * @param {*} password
-  //  */
-
-  // const doLogin = async (email, password) => {
-  //   setIsLoading(true);
-  //   Firebase.auth()
-  //     .signInWithEmailAndPassword(email, password)
-  //     .catch((error) => console.log(error));
-  // };
-
-  // /**
-  //  * Function that handles Firebase authentication for signup
-  //  * @param {*} email
-  //  * @param {*} password
-  //  */
-  // const doSignup = async (email, password) => {
-  //   setIsLoading(true);
-  //   Firebase.auth()
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .catch((error) => console.log(error));
-  // };
-
   /**
    * Function that handles Google login OAuth2.0 with Firebase auth
    */
@@ -82,7 +53,6 @@ const App = ({ navigation }) => {
         androidClientId: Constants.manifest.extra.ANDROID_KEY,
       });
       if (result.type === "success") {
-        console.log(result);
         setIsLoading(true);
         const credential = firebase.auth.GoogleAuthProvider.credential(
           result.idToken,
