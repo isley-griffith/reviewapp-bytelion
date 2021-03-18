@@ -10,7 +10,6 @@ import firebase from "firebase";
  * @param {} param0
  */
 export default function Review({ item, navigation }) {
-
   const handleUpvote = () => {
     addCurrentUserToUpvoteList();
   };
@@ -36,7 +35,7 @@ export default function Review({ item, navigation }) {
         firebase
           .database()
           .ref(`reviews/${item.key}/downvoteUserList/${currUID}`)
-          .remove(); 
+          .remove();
       }
       firebase
         .database()
@@ -46,7 +45,7 @@ export default function Review({ item, navigation }) {
           downvotes: Object.keys(users).length,
         });
     });
-    upvotedList.once("value", function(snapshot) {
+    upvotedList.once("value", function (snapshot) {
       let users = snapshot.val() || {};
       if (!(currUID in users)) {
         users[currUID] = true;
@@ -60,7 +59,7 @@ export default function Review({ item, navigation }) {
           upvoteUserList: users,
           upvotes: Object.keys(users).length,
         });
-    })
+    });
   };
 
   const addCurrentUserToDownvoteList = () => {
@@ -81,7 +80,7 @@ export default function Review({ item, navigation }) {
         firebase
           .database()
           .ref(`reviews/${item.key}/upvoteUserList/${currUID}`)
-          .remove(); 
+          .remove();
       }
       firebase
         .database()
@@ -136,20 +135,19 @@ export default function Review({ item, navigation }) {
 
         <View style={styles.bottomRowContainer}>
           <View style={styles.thumbsContainer}>
-            <TouchableOpacity onPress={() => handleUpvote()}>
+            <TouchableOpacity onPress={() => handleUpvote()} style={styles.likeContainer}>
               <MaterialIcons name="thumb-up" color="white" size={16} />
+              <Text style={styles.likes}> {item.upvotes}</Text>
             </TouchableOpacity>
-            <Text style={styles.likes}> {item.upvotes}</Text>
-            <TouchableOpacity onPress={() => handleDownvote()}>
+            <TouchableOpacity onPress={() => handleDownvote() } style={styles.likeContainer}>
               <MaterialIcons
                 name="thumb-down"
                 color="#bbb"
                 size={16}
                 style={{ marginLeft: 8 }}
               />
+              <Text style={styles.likes}> {item.downvotes}</Text>
             </TouchableOpacity>
-            <Text style={styles.likes}>  {item.downvotes}</Text>
-
           </View>
         </View>
       </View>
@@ -235,5 +233,11 @@ const styles = StyleSheet.create({
   likes: {
     fontSize: 16,
     color: "white",
+
   },
+  likeContainer: {
+    flexDirection: 'row',
+    marginRight: 2,
+    padding: 4
+  }
 });

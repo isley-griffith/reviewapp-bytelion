@@ -41,13 +41,13 @@ const Comment = ({ item }) => {
         clearButtonMode="always"
         mode="outlined"
         placeholder={`Tap 'Reply' to submit!`}
-        label="What do you think about this review?"
+        label="Type here to reply..."
         theme={{
           colors: {
             text: "#f5f5f5",
             accent: "#ffffff",
             primary: "#ffffff",
-            placeholder: "#f5f5f5",
+            placeholder: "grey",
             background: "#35363a",
           },
         }}
