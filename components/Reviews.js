@@ -5,9 +5,10 @@ import {
   FlatList,
   Animated,
   TouchableWithoutFeedback,
+  StyleSheet,
 } from "react-native";
 
-import Comment from "./Comment.js";
+import Header from "./Header.js";
 import Review from "./Review.js";
 import firebase from "firebase";
 import { SharedElement } from "react-navigation-shared-element";
@@ -34,19 +35,17 @@ const Reviews = ({ navigation }) => {
             created_at: child.val().created_at,
             message: child.val().message,
             rating: child.val().rating,
-            upvotes: child.val().upvotes
+            upvotes: child.val().upvotes,
+            downvotes: child.val().downvotes,
           });
         });
-
         setLoading(false);
         setData(li);
       });
   }, []);
 
   return (
-    <View
-      style={{ flex: 1, paddingLeft: 16, paddingRight: 16, height: "100%" }}
-    >
+    <View style={styles.flatList}>
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
@@ -57,10 +56,11 @@ const Reviews = ({ navigation }) => {
             justifyContent: "space-between",
           }}
         >
+          <Header />
+
           <FlatList
             data={data}
             contentContainerStyle={{
-              paddingTop: 80,
               paddingBottom: 80,
             }}
             keyExtractor={(item) => item.key}
@@ -87,5 +87,14 @@ const Reviews = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  flatList: {
+    flex: 1,
+    paddingLeft: 16,
+    paddingRight: 16,
+    height: "100%",
+  },
+});
 
 export default Reviews;

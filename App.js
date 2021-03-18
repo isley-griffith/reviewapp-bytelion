@@ -6,10 +6,7 @@ import SignUpScreen from "./screens/SignUpScreen.js";
 import ReviewScreen from "./screens/ReviewScreen.js";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import {
-  View,
-  ActivityIndicator,
-} from "react-native";
+import { View, ActivityIndicator, Alert } from "react-native";
 import mainContext from "./context/mainContext";
 import Firebase from "./config/Firebase.js";
 import Constants from "expo-constants";
@@ -77,7 +74,14 @@ const App = ({ navigation }) => {
   const mainC = useMemo(
     () => ({
       userProfile: { userProfile },
-      signOutUser: () => Firebase.auth().signOut(),
+      signOutUser: () => {
+        Alert.alert("Are you sure?", "This will log you out.", [
+          {text: 'Cancel', onPress: () => console.log('Cancel pressed')},
+          {text: "Yes, I'm sure.", onPress: () => Firebase.auth().signOut()},
+        ],
+        {cancelable: false}
+        );
+      },
       handleGLogin: () => {
         Glogin();
       },
@@ -126,7 +130,6 @@ const App = ({ navigation }) => {
                 component={Home}
                 options={{
                   headerShown: false,
-                  
                 }}
               />
               <Stack.Screen

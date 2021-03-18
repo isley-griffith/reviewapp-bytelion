@@ -8,12 +8,12 @@ export default function CommentText({ item }) {
   const VALUE = 1;
 
   return (
-    <View style={styles.overallContainer}>
+    <View>
       <View style={styles.container}>
         <Text style={styles.commentNameStyle}>
           {item.comments[DISPLAY_NAME]}:
         </Text>
-        <Divider style={styles.divider}/>
+        {/* <Divider style={styles.divider}/> */}
         <Text style={styles.commentTextStyle}>{item.comments[VALUE]}</Text>
       </View>
     </View>
@@ -21,16 +21,15 @@ export default function CommentText({ item }) {
 }
 
 const styles = StyleSheet.create({
-  overallContainer: {
-    flex: 1,
 
-  },
   container: {
+    // flex: 1,
     padding: 10,
     borderWidth: 1,
     borderColor: "#bbb",
     borderRadius: 10,
     backgroundColor: "#35363a",
+    marginTop: 10
   },
   commentTextStyle: {
     color: "white",

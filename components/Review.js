@@ -3,18 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Avatar } from "react-native-paper";
 import { Rating } from "react-native-ratings";
-import { exportReviewsToFirestore } from "../API/firebaseMethods.js";
 import firebase from "firebase";
 
 /**
  * Individual review component
  * @param {} param0
  */
-
 export default function Review({ item, navigation }) {
-  // const [upvote, setUpvote] = useState(0);
-  // const [user, setUser] = useState("");
-  // const [upvotedUsers, setUpvotedUsers] = useState([]);
+
   const handleUpvote = () => {
     addCurrentUserToUpvoteList();
   };
@@ -25,86 +21,92 @@ export default function Review({ item, navigation }) {
 
   const addCurrentUserToUpvoteList = () => {
     const currUID = firebase.auth().currentUser.uid;
-    
-    let users = {};
     let upvotedList = firebase
       .database()
       .ref(`reviews/${item.key}/upvoteUserList`);
 
-    upvotedList.once("value", function (snapshot) {
-      users = snapshot.val() || {};
-      if (currUID in users) {
-        // if the user has already liked the post:
-        users[currUID] = true;
-        firebase
-          .database()
-          .ref(`reviews/${item.key}/upvoteUserList/${currUID}`)
-          .remove(); // remove the user from the upvoteUserList in Firebase
-        delete users[currUID]; // removing from users object
-
-        firebase
-          .database()
-          .ref(`reviews/${item.key}`)
-          .update({
-            upvotes: Object.keys(users).length,
-          });
-      } else if (!(currUID in users)) {
-        users[currUID] = true;
-
-        firebase
-          .database()
-          .ref(`reviews/${item.key}`)
-          .update({
-            upvoteUserList: users,
-            upvotes: Object.keys(users).length,
-          });
-      }
-    });
-  };
-
-  const readUpvoteCount = () => {
-    let upvotedList = firebase
-      .database()
-      .ref(`reviews/${item.key}/upvoteUserList`);
-    upvotedList.once("value", function (snapshot) {
-      let users = snapshot.val() || {};
-      // console.log(Object.keys(users).length);
-      return Object.keys(users).length;
-    });
-  };
-
-  const addCurrentUserToDownvoteList = () => {
-    const currUID = firebase.auth().currentUser.uid;
-    let users = {};
     let downvotedList = firebase
       .database()
       .ref(`reviews/${item.key}/downvoteUserList`);
 
     downvotedList.once("value", function (snapshot) {
-      users = snapshot.val() || {};
-      if (!(currUID in users)) {
-        // let upvoteCount = Object.keys(users).length;
-        users[currUID] = true;
-        firebase
-          .database()
-          .ref(`reviews/${item.key}`)
-          .update({
-            downvoteUserList: users,
-            downvotes: Object.keys(users).length,
-          });
-      }
+      let users = snapshot.val() || {};
       if (currUID in users) {
-        // let upvoteCount = Object.keys(users).length;
         delete users[currUID];
-        // users[currUID] = true;
         firebase
           .database()
-          .ref(`reviews/${item.key}`)
-          .update({
-            downvoteUserList: users,
-            downvotes: Object.keys(users).length,
-          });
+          .ref(`reviews/${item.key}/downvoteUserList/${currUID}`)
+          .remove(); 
       }
+      firebase
+        .database()
+        .ref(`reviews/${item.key}`)
+        .update({
+          downvoteUserList: users,
+          downvotes: Object.keys(users).length,
+        });
+    });
+    upvotedList.once("value", function(snapshot) {
+      let users = snapshot.val() || {};
+      if (!(currUID in users)) {
+        users[currUID] = true;
+      } else if (currUID in users) {
+        delete users[currUID];
+      }
+      firebase
+        .database()
+        .ref(`reviews/${item.key}`)
+        .update({
+          upvoteUserList: users,
+          upvotes: Object.keys(users).length,
+        });
+    })
+  };
+
+  const addCurrentUserToDownvoteList = () => {
+    const currUID = firebase.auth().currentUser.uid;
+
+    let downvotedList = firebase
+      .database()
+      .ref(`reviews/${item.key}/downvoteUserList`);
+
+    let upvotedList = firebase
+      .database()
+      .ref(`reviews/${item.key}/upvoteUserList`);
+
+    upvotedList.once("value", function (snapshot) {
+      let users = snapshot.val() || {};
+      if (currUID in users) {
+        delete users[currUID];
+        firebase
+          .database()
+          .ref(`reviews/${item.key}/upvoteUserList/${currUID}`)
+          .remove(); 
+      }
+      firebase
+        .database()
+        .ref(`reviews/${item.key}`)
+        .update({
+          upvotedList: users,
+          upvotes: Object.keys(users).length,
+        });
+    });
+
+    downvotedList.once("value", function (snapshot) {
+      // downvoted
+      let users = snapshot.val() || {};
+      if (!(currUID in users)) {
+        users[currUID] = true;
+      } else if (currUID in users) {
+        delete users[currUID];
+      }
+      firebase
+        .database()
+        .ref(`reviews/${item.key}`)
+        .update({
+          downvoteUserList: users,
+          downvotes: Object.keys(users).length,
+        });
     });
   };
 
@@ -146,6 +148,8 @@ export default function Review({ item, navigation }) {
                 style={{ marginLeft: 8 }}
               />
             </TouchableOpacity>
+            <Text style={styles.likes}>  {item.downvotes}</Text>
+
           </View>
         </View>
       </View>

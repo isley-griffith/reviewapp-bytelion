@@ -27,8 +27,8 @@ export default function CommentList({ item }) {
     <View style={styles.container}>
       <FlatList
         data={data}
-        keyExtractor={(item) => item.key}
-        contentContainerStyle={{paddingTop: 20}}
+        keyExtractor={(item) => {return item.key}}
+        contentContainerStyle={{paddingTop: 30, paddingBottom: 200}}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => {
@@ -46,6 +46,5 @@ export default function CommentList({ item }) {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    height: "100%"
   },
 });

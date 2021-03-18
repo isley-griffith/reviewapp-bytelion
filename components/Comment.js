@@ -39,27 +39,39 @@ const Comment = ({ item }) => {
     <View style={styles.container}>
       <TextInput
         clearButtonMode="always"
-        placeholder={`What do you think about this review?`}
+        mode="outlined"
+        placeholder={`Tap 'Reply' to submit!`}
+        label="What do you think about this review?"
+        theme={{
+          colors: {
+            text: "#f5f5f5",
+            accent: "#ffffff",
+            primary: "#ffffff",
+            placeholder: "#f5f5f5",
+            background: "#35363a",
+          },
+        }}
+        underlineColor="#f5f5f5"
+        underlineColorAndroid="#f5f5f5"
         onChangeText={(comment) => setComment(comment)}
       />
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={() => handleSubmit(comment)}>
-          <Button mode="outlined" style={styles.button} labelStyle={{fontWeight: 'bold'}}>
+          <Button
+            mode="outlined"
+            style={styles.button}
+            labelStyle={{ fontWeight: "bold", color: "#ffffff" }}
+          >
             Reply
           </Button>
         </TouchableOpacity>
       </View>
-
-      {/** TODO: retrieve comments from Firebase and display*/}
-      <View>{/* <Text>{item.comments}</Text> */}</View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: {},
   postedCommentContainer: {
     flex: 1,
     backgroundColor: "white",
@@ -67,17 +79,17 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    width: 100,
+    width: 175,
     fontWeight: "800",
-    borderColor: '#bbb',
+    borderColor: "#bbb",
     borderWidth: 1,
-    borderRadius: 50
+    borderRadius: 50,
   },
   buttonContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 5
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
   },
 });
 

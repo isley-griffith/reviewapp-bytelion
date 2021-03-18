@@ -35,7 +35,7 @@ const ReviewScreen = ({ navigation, route }) => {
       <SharedElement id={item.key} style={styles.reviewContainer}>
         <Review item={item} />
         <Comment item={item} />
-        <Text style={styles.commentHeader}>Comments: </Text>
+        <Text style={styles.commentHeader}>Replies: </Text>
 
         <CommentList item={item}/>
       </SharedElement>

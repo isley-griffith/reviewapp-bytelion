@@ -24,11 +24,9 @@ const Home = ({ navigation }) => {
       </View>
 
       <View style={styles.signOutContainer}>
-        <Button onPress={() => signOutUser()} icon="logout">
-          Logout
-        </Button>
+        <Button onPress={() => signOutUser()} icon="logout"></Button>
       </View>
-      <Reviews navigation={navigation}/>
+      <Reviews navigation={navigation} />
     </View>
   );
 };
