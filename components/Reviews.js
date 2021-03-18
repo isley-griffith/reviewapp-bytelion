@@ -23,7 +23,7 @@ import Sort from "../components/Sort.js";
 const Reviews = ({ navigation }) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  const [tapped, setTapped] = useState(false);
+  const [tapped, setTapped] = useState(true);
   const [filterName, setFilterName] = useState('Oldest')
   const { signOutUser } = useContext(mainContext);
 
@@ -91,7 +91,7 @@ const Reviews = ({ navigation }) => {
         >
           <Header />
           <View style={styles.signOutContainer}>
-            <Button onPress={() => signOutUser()} icon="logout"></Button>
+            <Button onPress={() => signOutUser()} icon="logout">logout</Button>
           </View>
 
           <View style={styles.filterContainer}>
@@ -138,19 +138,19 @@ const styles = StyleSheet.create({
   signOutContainer: {
     position: "absolute",
     borderRadius: 10,
-    top: 40,
-    left: 15,
+    top: 45,
+    left: 0,
     zIndex: 100,
-    backgroundColor: "white",
+    backgroundColor: "transparent",
   },
   filterContainer: {
     position: "absolute",
     borderRadius: 10,
-    top: 40,
-    right: 15,
+    top: 45,
+    right: 0,
     zIndex: 100,
-
-    backgroundColor: "white",
+    backgroundColor: "transparent",
+    color: 'white'
   },
 });
 
