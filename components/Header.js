@@ -1,10 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import {MaterialIcons} from '@expo/vector-icons'
+
+// Header "Reviews"
 export default function Header() {
   return (
     <View style={styles.header}>
-      {/** Icon */}
       <View>
         <Text style={styles.headerText}>Reviews</Text>
       </View>

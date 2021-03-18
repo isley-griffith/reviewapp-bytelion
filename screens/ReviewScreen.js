@@ -9,6 +9,9 @@ import firebase from "firebase";
 import CommentList from "../components/CommentList.js";
 
 
+/**
+ * Individual review screen
+ */
 const ReviewScreen = ({ navigation, route }) => {
   const { item } = route.params;
 
@@ -18,26 +21,18 @@ const ReviewScreen = ({ navigation, route }) => {
         <AntDesign
           name="close"
           size={28}
-          style={{
-            padding: 12,
-            position: "absolute",
-            top: 30,
-            right: 10,
-            zIndex: 100,
-          }}
+          style={styles.crossIcon}
           color="white"
           onPress={() => {
             navigation.goBack();
           }}
         />
       </SafeAreaView>
-
       <SharedElement id={item.key} style={styles.reviewContainer}>
         <Review item={item} />
         <Comment item={item} />
         <Text style={styles.commentHeader}>Replies: </Text>
-
-        <CommentList item={item}/>
+        <CommentList item={item} />
       </SharedElement>
     </View>
   );
@@ -99,9 +94,16 @@ const styles = StyleSheet.create({
     color: "white",
   },
   commentHeader: {
-    fontWeight: 'bold',
-    color: 'white'
-  }
+    fontWeight: "bold",
+    color: "white",
+  },
+  crossIcon: {
+    padding: 12,
+    position: "absolute",
+    top: 30,
+    right: 10,
+    zIndex: 100,
+  },
 });
 
 ReviewScreen.sharedElements = (route) => {

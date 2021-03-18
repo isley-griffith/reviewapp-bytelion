@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import firebase from "firebase";
 
@@ -13,6 +13,7 @@ const Comment = ({ item }) => {
     if (comment) {
       // If comment is not null
       commentsList.once("value", function (snapshot) {
+        // assigning comment to current displayName
         commentsObj = snapshot.val() || {};
         if (commentsObj[name] == null) {
           commentsObj[name] = comment;
@@ -28,7 +29,6 @@ const Comment = ({ item }) => {
       // If comment is empty
       Alert.alert("Reply cannot be empty.");
     }
-
     firebase
       .database()
       .ref("reviews/" + item.key)
@@ -36,7 +36,7 @@ const Comment = ({ item }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <TextInput
         clearButtonMode="always"
         mode="outlined"
@@ -71,7 +71,6 @@ const Comment = ({ item }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
   postedCommentContainer: {
     flex: 1,
     backgroundColor: "white",

@@ -7,10 +7,10 @@ import mainContext from "../context/mainContext.js";
 import { Text, Button, Title, Paragraph, Drawer } from "react-native-paper";
 /**
  * Contains the Reviews component
+ * Not currently necessary, but could make certain functionalities easier to execute in the future
  * @param {} param0
  */
 const Home = ({ navigation }) => {
-
   return (
     <View style={styles.container}>
       <Reviews navigation={navigation} />
@@ -21,7 +21,6 @@ const Home = ({ navigation }) => {
 /**
  * Styles
  */
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -10,14 +10,18 @@ import firebase from "firebase";
  * @param {} param0
  */
 export default function Review({ item, navigation }) {
+  // In case I wanted to do more on upvote
   const handleUpvote = () => {
     addCurrentUserToUpvoteList();
   };
 
+  // In case I wanted to do more on downvote
   const handleDownvote = () => {
     addCurrentUserToDownvoteList();
   };
 
+  // Logic of upvotes.
+  // Instead of redundant db requests, should have used Redux
   const addCurrentUserToUpvoteList = () => {
     const currUID = firebase.auth().currentUser.uid;
     let upvotedList = firebase
@@ -62,6 +66,8 @@ export default function Review({ item, navigation }) {
     });
   };
 
+  // Logic of downvotes.
+  // Instead of redundant db requests, should have used Redux
   const addCurrentUserToDownvoteList = () => {
     const currUID = firebase.auth().currentUser.uid;
 
@@ -109,37 +115,30 @@ export default function Review({ item, navigation }) {
     });
   };
 
-  // length of object with Object.keys.length
-  // default upvote count of 0, increment and decrement depending on whether or not line 47 is satisfied
-
   return (
     <View style={styles.container}>
       <View style={{ width: "100%" }}>
-        {/* message, created_at, avatar */}
-
         <View>
           <Avatar.Icon size={42} marginBottom={5} icon="head" />
 
           <View style={styles.mainContainer}>
-            <Text
-              style={{
-                lineHeight: 21,
-                color: "white",
-                paddingRight: 25,
-              }}
-            >
-              {item.message}
-            </Text>
+            <Text style={styles.message}>{item.message}</Text>
           </View>
         </View>
 
         <View style={styles.bottomRowContainer}>
           <View style={styles.thumbsContainer}>
-            <TouchableOpacity onPress={() => handleUpvote()} style={styles.likeContainer}>
+            <TouchableOpacity
+              onPress={() => handleUpvote()}
+              style={styles.likeContainer}
+            >
               <MaterialIcons name="thumb-up" color="white" size={16} />
               <Text style={styles.likes}> {item.upvotes}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleDownvote() } style={styles.likeContainer}>
+            <TouchableOpacity
+              onPress={() => handleDownvote()}
+              style={styles.likeContainer}
+            >
               <MaterialIcons
                 name="thumb-down"
                 color="#bbb"
@@ -174,7 +173,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
-    // backgroundColor: "#202124",
     backgroundColor: "#35363a",
     borderColor: "#bbb",
     borderWidth: 1,
@@ -233,11 +231,15 @@ const styles = StyleSheet.create({
   likes: {
     fontSize: 16,
     color: "white",
-
   },
   likeContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginRight: 2,
-    padding: 4
-  }
+    padding: 4,
+  },
+  message: {
+    lineHeight: 21,
+    color: "white",
+    paddingRight: 25,
+  },
 });

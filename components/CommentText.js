@@ -1,19 +1,16 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import firebase from "firebase";
-import { Divider } from "react-native-paper";
 
+// Component that is displayed in the FlatList
 export default function CommentText({ item }) {
   const DISPLAY_NAME = 0;
   const VALUE = 1;
-
   return (
     <View>
       <View style={styles.container}>
         <Text style={styles.commentNameStyle}>
           {item.comments[DISPLAY_NAME]}:
         </Text>
-        {/* <Divider style={styles.divider}/> */}
         <Text style={styles.commentTextStyle}>{item.comments[VALUE]}</Text>
       </View>
     </View>
@@ -23,7 +20,6 @@ export default function CommentText({ item }) {
 const styles = StyleSheet.create({
 
   container: {
-    // flex: 1,
     padding: 10,
     borderWidth: 1,
     borderColor: "#bbb",

@@ -14,7 +14,6 @@ import firebase from "firebase";
 import { SharedElement } from "react-navigation-shared-element";
 import mainContext from "../context/mainContext.js";
 import { Button } from "react-native-paper";
-import Sort from "../components/Sort.js";
 
 /**
  * Displays all reviews from mock API in a Flatlist component
@@ -24,7 +23,7 @@ const Reviews = ({ navigation }) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [tapped, setTapped] = useState(true);
-  const [filterName, setFilterName] = useState('Oldest')
+  const [filterName, setFilterName] = useState("Oldest");
   const { signOutUser } = useContext(mainContext);
 
   useEffect(() => {
@@ -48,6 +47,7 @@ const Reviews = ({ navigation }) => {
       });
   }, []);
 
+  // Already in chronological order, so reverses list.
   const handleSort = () => {
     firebase
       .database()
@@ -66,36 +66,36 @@ const Reviews = ({ navigation }) => {
         });
         if (tapped) {
           li.reverse();
-          setData(li)
+          setData(li);
           setTapped(false);
-          setFilterName('Newest');
+          setFilterName("Newest");
         } else if (!tapped) {
           setData(li);
           setTapped(true);
-          setFilterName('Oldest');
+          setFilterName("Oldest");
         }
       });
   };
-
+  /**
+   * Rendering flatlist if not loading
+   */
   return (
     <View style={styles.flatList}>
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "column",
-            justifyContent: "space-between",
-          }}
-        >
+        <View style={styles.flatListContainer}>
           <Header />
           <View style={styles.signOutContainer}>
-            <Button onPress={() => signOutUser()} icon="logout">logout</Button>
+            <Button onPress={() => signOutUser()} icon="logout">
+              logout
+            </Button>
           </View>
 
           <View style={styles.filterContainer}>
-            <Button onPress={() => handleSort(data)} icon="filter">{filterName}</Button>
+            <Button onPress={() => handleSort(data)} icon="filter">
+              {filterName}
+            </Button>
           </View>
 
           <FlatList
@@ -150,7 +150,12 @@ const styles = StyleSheet.create({
     right: 0,
     zIndex: 100,
     backgroundColor: "transparent",
-    color: 'white'
+    color: "white",
+  },
+  flatListContainer: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
 });
 

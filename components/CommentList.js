@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
-import Comment from "./Comment.js";
-import CommentText from "./CommentText.js";
+import { View, FlatList, StyleSheet } from "react-native";
 
+import CommentText from "./CommentText.js";
 import firebase from "firebase";
 
 export default function CommentList({ item }) {
   const [data, setData] = useState([]);
-  const currUID = firebase.auth().currentUser.uid;
-  
+
   useEffect(() => {
     firebase
       .database()
@@ -16,6 +14,7 @@ export default function CommentList({ item }) {
       .on("value", (snapshot) => {
         let li = [];
         snapshot.forEach((child) => {
+          // child.key is displayName. child.val() is the comment associated
           li.push({
             comments: [child.key, child.val()],
           });
@@ -27,8 +26,10 @@ export default function CommentList({ item }) {
     <View style={styles.container}>
       <FlatList
         data={data}
-        keyExtractor={(item) => {return item.key}}
-        contentContainerStyle={{paddingTop: 30, paddingBottom: 200}}
+        keyExtractor={(item) => {
+          return item.key;
+        }}
+        contentContainerStyle={{ paddingTop: 30, paddingBottom: 200 }}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => {

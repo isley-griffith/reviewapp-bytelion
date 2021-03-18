@@ -23,7 +23,7 @@ const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        You can review review reviews!
+        You can review review app reviews!
       </Text>
       <Text style={styles.title}> Start by logging in below.</Text>
       <Image style={styles.image} source={require('../assets/images/arrowdown.png')}/>

@@ -1,18 +1,15 @@
 import React, { useState, useEffect, useMemo } from "react";
-import * as Font from "expo-font";
 import Home from "./screens/Home.js";
 import LoginScreen from "./screens/LoginScreen.js";
 import SignUpScreen from "./screens/SignUpScreen.js";
 import ReviewScreen from "./screens/ReviewScreen.js";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { View, ActivityIndicator, Alert } from "react-native";
+import { View, ActivityIndicator, Alert, StyleSheet } from "react-native";
 import mainContext from "./context/mainContext";
 import Firebase from "./config/Firebase.js";
 import Constants from "expo-constants";
 import * as Google from "expo-google-app-auth";
 import firebase from "firebase";
-import { CardStyleInterpolators } from "@react-navigation/stack";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
 const Stack = createSharedElementStackNavigator();
@@ -75,11 +72,17 @@ const App = ({ navigation }) => {
     () => ({
       userProfile: { userProfile },
       signOutUser: () => {
-        Alert.alert("Are you sure?", "This will log you out.", [
-          {text: 'Cancel', onPress: () => console.log('Cancel pressed')},
-          {text: "Yes, I'm sure.", onPress: () => Firebase.auth().signOut()},
-        ],
-        {cancelable: false}
+        Alert.alert(
+          "Are you sure?",
+          "This will log you out.",
+          [
+            { text: "Cancel", onPress: () => console.log("Cancel pressed") },
+            {
+              text: "Yes, I'm sure.",
+              onPress: () => Firebase.auth().signOut(),
+            },
+          ],
+          { cancelable: false }
         );
       },
       handleGLogin: () => {
@@ -95,12 +98,7 @@ const App = ({ navigation }) => {
   if (isLoading) {
     return (
       <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center ",
-          left: "48%",
-        }}
+        style={styles.loading}
       >
         <ActivityIndicator animating={true} size="large" />
       </View>
@@ -144,5 +142,14 @@ const App = ({ navigation }) => {
     </mainContext.Provider>
   );
 };
+
+const styles = StyleSheet.create({
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    left: "48%",
+  },
+});
 
 export default App;
