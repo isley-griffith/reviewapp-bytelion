@@ -6,13 +6,9 @@ import {
   Image
 } from "react-native";
 
-import Firebase from "../config/Firebase.js";
-import { TextInput, HelperText } from "react-native-paper";
+
 import { Button as RNPButton } from "react-native-paper";
 import mainContext from "../context/mainContext.js";
-import SignUpScreen from "./SignUpScreen.js";
-
-import {image} from '../assets/images/arrowdown.png'
 
 const LoginScreen = ({ navigation }) => {
   /**
