@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View } from "react-native";
 import { Button, Menu, Divider, Provider } from "react-native-paper";
 
-const Sort = () => {
+const Sort = ({data}) => {
   const [visible, setVisible] = useState(true);
 
   const openMenu = () => {
